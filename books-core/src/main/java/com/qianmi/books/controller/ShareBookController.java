@@ -34,6 +34,8 @@ public class ShareBookController extends BaseController {
             Object obj = session.getAttribute("userInfo");
             if(obj == null){
                 model.addAttribute("msg","您还没有登陆，请登陆后再操作！");
+                model.addAttribute("url","/login");
+                model.addAttribute("actionName","登陆");
                 return "error";
             }
             TbUser tbUser = (TbUser)obj;
@@ -42,6 +44,6 @@ public class ShareBookController extends BaseController {
         } catch (CheckedException e) {
             return "addError";
         }
-        return "success";
+        return "registSuccess";
     }
 }

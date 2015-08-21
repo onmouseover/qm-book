@@ -14,12 +14,13 @@
 <body>
 
 <jsp:include page="common/header.jsp"></jsp:include>
+
 <div class="container well well-lg">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div id="wrapper">
-        <div class="alert alert-danger" role="alert">
-          抱歉，添加失败！<a href="/shareBooks">继续添加</a>&nbsp;&nbsp;<a href="/index">返回首页</a>
+        <div class="alert alert-success" role="alert">
+          恭喜您，注册成功！<a href="/shareBooks">分享图书</a>&nbsp;&nbsp;<a href="/index">返回首页</a>
         </div>
       </div>
     </div>

@@ -12,15 +12,31 @@
   <link href="/css/style.css" rel="stylesheet">
  </head>
 <body>
-
 <jsp:include page="common/header.jsp"></jsp:include>
 <div class="container well well-lg">
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-md-offset-2">
       <div id="wrapper">
-        <div class="alert alert-danger" role="alert">
-          抱歉，添加失败！<a href="/shareBooks">继续添加</a>&nbsp;&nbsp;<a href="/index">返回首页</a>
-        </div>
+        <form class="form-horizontal" action="/shareBook" method="post">
+          <div class="form-group">
+            <label for="bookName" class="col-sm-2 control-label">用户名：</label>
+            <div class="col-sm-4">
+              ${userInfo.userName}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="author" class="col-sm-2 control-label">借书码：</label>
+            <div class="col-sm-4">
+              ${userInfo.borrowKey}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="introduce" class="col-sm-2 control-label">推广链接：</label>
+            <div class="col-sm-4">
+              http://xxx.com/regist?toUserId=${userInfo.userId}
+            </div>
+          </div>
+          </form>
       </div>
     </div>
   </div>

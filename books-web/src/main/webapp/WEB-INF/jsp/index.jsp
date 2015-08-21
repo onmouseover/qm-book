@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="common/taglibs.jsp"></jsp:include>
 
 <html lang="en">
 <head>
@@ -9,38 +9,8 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="javascript:void(0);">首页</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">我的资源</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">分享资源</a>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-warning">Search</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">加入我们</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
+ 
+<jsp:include page="common/header.jsp"></jsp:include>
 <div class="jumbotron">
     <div class="container">
         <div style="text-align: center;" style="padding-top:40px"><h1>QM Hackathon In NanJing</h1></div>
@@ -62,24 +32,25 @@
             </a>
         </div>
     </div>
+  </div>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div id="wrapper">
-                <div id="repos" class="columns collapse-group">
-                </div>
-                <div class="separator"></div>
+                <div id="repos" class="columns collapse-group"></div>
                 <div class="section-title">
+                    <div class="separator"></div>
+                    <div class="separator"></div>
                     <span class="title">热门图书</span>
 
                     <c:forEach items="${bookList}" var="item" varStatus="stat">
                         <c:if test="${stat.index % 5 == 0}">
-                            <div class="columns section in" style="height: auto;text-align: center;" >
+                            <div class="columns section in" style="height: 0px;text-align: center;" >
                         </c:if>
                         <div class="updated-card col-sm-5 col-md-4 col-lg-3"
-                             style="height:auto;width:175px;text-align:center;">
+                             style="height:auto;width:175px;text-align:center;margin-left: 42px">
                             <div class="card pin css developer.bigfix.com">
                                 <a href="#">
                                     <h4>
@@ -91,8 +62,6 @@
 
                                 <p>
                                     <a href="#" class="btn btn-primary btn-xs">预约</a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="#" class="btn btn-primary btn-xs">借书</a>
                                 </p>
                             </div>
                         </div>
@@ -108,12 +77,13 @@
             </div>
         </div>
     </div>
+    <p align="center"><h5 align="center">More...</h5></p>
     <hr>
 </div>
 
 
 <footer>
-    <div class="container" align="center">
+    <div class="container">
         <p>© 千米 2015-2016</p>
     </div>
 </footer>
