@@ -105,6 +105,9 @@
 		<isNotEmpty prepend="," property="borrowCount">
 			#borrowCount# 
 		</isNotEmpty>
+        <isNotEmpty prepend="," property="borrowKey">
+            #borrowKey#
+        </isNotEmpty>
 		</dynamic>
 		)
 	</insert>
