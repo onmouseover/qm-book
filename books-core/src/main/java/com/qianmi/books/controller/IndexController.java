@@ -32,7 +32,7 @@ public class IndexController extends BaseController {
             tbBooks.add(tbBook);
         }
 
-        model.addAttribute("bookList", bookService.queryBookList(tbBook));
+        model.addAttribute("bookList", tbBooks);
         return "index";
     }
 }

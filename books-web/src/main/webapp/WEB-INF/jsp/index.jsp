@@ -74,15 +74,17 @@
                 <div class="section-title">
                     <span class="title">热门图书</span>
 
-
-                    <div class="columns section in" style="height: auto;">
+                    <c:forEach items="${bookList}" var="item" varStatus="stat">
+                        <c:if test="${stat.index % 5 == 0}">
+                            <div class="columns section in" style="height: auto;text-align: center;" >
+                        </c:if>
                         <div class="updated-card col-sm-5 col-md-4 col-lg-3"
                              style="height:auto;width:175px;text-align:center;">
                             <div class="card pin css developer.bigfix.com">
                                 <a href="#">
                                     <h4>
                                         <img src="/images/1.jpg" alt="java" class="img-rounded"
-                                             style="width: 100px; height: 140px; margin: auto">
+                                             style="width: 120px; height: 160px; margin: auto">
                                     </h4>
                                     <h5>java程序与设计</h5>
                                 </a>
@@ -94,7 +96,11 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+
+                        <c:if test="${stat.index % 5 == 0}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
                     <a data-toggle="collapse" data-target="#updated" class="twistie showdetails"></a>
                 </div>
                 <div class="separator gap"></div>
