@@ -44,32 +44,54 @@
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-md-offset-2">
       <div id="wrapper">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="/shareBook" method="post">
           <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">书籍名称：</label>
+            <label for="bookName" class="col-sm-2 control-label">书籍名称：</label>
             <div class="col-sm-4">
-              <input type="input" maxlength="50" class="form-control" id="inputEmail3">
+              <input type="input" maxlength="50" name="bookName" class="form-control" id="bookName">
             </div>
           </div>
           <div class="form-group">
-            <label for="bookType" class="col-sm-2 control-label">书籍类型：</label>
-            <div class="col-sm-4" name="bookType" id="bookType">
-              <select class="form-control">
-                <option>文学</option>
-                <option>历史</option>
-                <option>java</option>
-                <option>Node</option>
-                <option>C++</option>
+            <label for="bks" class="col-sm-2 control-label">书籍类型：</label>
+            <div class="col-sm-4" id="bks">
+              <select class="form-control" name="bookType" id="bookType">
+                <option value="0">文学</option>
+                <option value="1">历史</option>
+                <option value="2">java</option>
+                <option value="3">Node</option>
+                <option value="4">C++</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"> Remember me
-                </label>
-              </div>
+            <label for="author" class="col-sm-2 control-label">作者：</label>
+            <div class="col-sm-4">
+              <input type="input" maxlength="50" name="author" class="form-control" id="author">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="introduce" class="col-sm-2 control-label">书籍简介：</label>
+            <div class="col-sm-4">
+              <input type="input" maxlength="50"  name="introduce"  class="form-control" id="introduce">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile" class="col-sm-2 control-label">书籍封面：</label>
+            <div class="col-sm-4">
+              <input type="file" id="exampleInputFile" name="exampleInputFile">
+              <p class="help-block">上传书籍封面.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pageSize" class="col-sm-2 control-label">书籍页数：</label>
+            <div class="col-sm-1">
+              <input type="input" maxlength="4" name="pageSize" class="form-control" id="pageSize">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="borrowCash" class="col-sm-2 control-label">借阅价格：</label>
+            <div class="col-sm-1">
+              <input type="input" maxlength="50" name="borrowCash" class="form-control" id="borrowCash">
             </div>
           </div>
           <div class="form-group">
