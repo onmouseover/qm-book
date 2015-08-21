@@ -34,4 +34,20 @@ public interface Contents {
         int BACK = 1;
 
     }
+
+    public interface BookType {
+        /**
+         * 文学
+         */
+        int WENXUE = 1;
+        /**
+         * 技术
+         */
+        int JISHU = 2;
+        /**
+         * 历史
+         */
+        int LISHI = 3;
+
+    }
 }

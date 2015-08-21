@@ -11,6 +11,7 @@ import com.qianmi.books.dao.domain.TbUser;
 import com.qianmi.books.domain.Contents;
 import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.service.BookService;
+import com.qianmi.books.util.uud.UUID;
 import com.qianmi.books.util.uud.UUIDGener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,6 +106,14 @@ public class BookServiceImpl implements BookService {
 
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
 
+        TbBook tbBookUpdate = new TbBook();
+        tbBookUpdate.setBookId(tbBook.getBookId());
+        tbBookUpdate.setState(Contents.BookState.LENDED);
+        int row = tbBookDao.updateTbBook(tbBookUpdate);
+        if (row == 0) {
+            throw new CheckedException("更新为已借出失败");
+        }
+
         TbBookBorrow tbBookBorrow = new TbBookBorrow();
         tbBookBorrow.setBorrowId(UUIDGener.getUUID());
         tbBookBorrow.setBookId(tbBook.getBookId());
@@ -121,7 +130,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void addBook(TbBook tbBook) throws CheckedException {
-
+        tbBook.setAddTime(new Date());
+        tbBook.setBookId(UUIDGener.getUUID());
+        tbBook.setState(Contents.BookState.CAN_BORROW);
     }
 
     @Override
