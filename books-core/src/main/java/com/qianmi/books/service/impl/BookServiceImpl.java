@@ -276,7 +276,22 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("当前书不是为归还状态");
         }
 
-        TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
+        TbUser borrowUser = this.tbUserDao.getTbUser(tbBookBorrow.getBorrowUserId());
+        TbBook tbBookUpdate = new TbBook();
+        tbBookUpdate.setBookId(tbBookBorrow.getBookId());
+        tbBookUpdate.setState(Contents.BookState.CAN_BORROW);
+
+        // 操作人不是书的借出人
+        if (!tbBookBorrow.getSellerUserId().equals(sellerUserId)) {
+            // 还至网点
+            if (tbBookBorrow.getBackPoint() == 0 && tbBookBorrow.getPointUserId().equals(sellerUserId)) {
+                tbBookUpdate.setSellerId(tbBookBorrow.getPointUserId()); // 更换成网点用户
+            } else {
+                throw new CheckedException("当前书籍不是此所有者");
+            }
+        }
+
+        TbUser sellerUser = this.tbUserDao.getTbUser(tbBookBorrow.getSellerUserId());
 
         TbBookBorrow tbBookBorrowUpdate = new TbBookBorrow();
         tbBookBorrowUpdate.setBorrowId(borrowId);
@@ -287,11 +302,7 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("确认收到还书失败");
         }
 
-        TbUser borrowUser = this.tbUserDao.getTbUser(tbBookBorrowUpdate.getBorrowUserId());
 
-        TbBook tbBookUpdate = new TbBook();
-        tbBookUpdate.setBookId(tbBookBorrow.getBookId());
-        tbBookUpdate.setState(Contents.BookState.CAN_BORROW);
         this.tbBookDao.updateTbBook(tbBookUpdate);
 
         // 过期日期
@@ -307,13 +318,13 @@ public class BookServiceImpl implements BookService {
             sellerRecord.setBorrowId(tbBookBorrow.getBorrowId());
             sellerRecord.setRecordTime(new Date());
             sellerRecord.setType(Contents.CreditType.GUOQI_IN);
-            sellerRecord.setUserId(sellerUserId);
+            sellerRecord.setUserId(tbBookBorrow.getSellerUserId());
             sellerRecord.setInCash(expireFee);
             this.tbCreditRecordDao.insertTbCreditRecord(sellerRecord);
 
             // 加钱
             TbUser tbSellerUserUpdate = new TbUser();
-            tbSellerUserUpdate.setUserId(sellerUserId);
+            tbSellerUserUpdate.setUserId(tbBookBorrow.getSellerUserId());
             tbSellerUserUpdate.setBlance(sellerUser.getBlance().add(expireFee));
             this.tbUserDao.updateTbUser(tbSellerUserUpdate);
         }
