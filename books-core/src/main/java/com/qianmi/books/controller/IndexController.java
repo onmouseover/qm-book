@@ -18,7 +18,7 @@ public class IndexController extends BaseController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = {"index","/"}, method = RequestMethod.GET)
     public String main(String condition, Model model) {
         TbBook tbBook = new TbBook();
         tbBook.setBookName(condition);

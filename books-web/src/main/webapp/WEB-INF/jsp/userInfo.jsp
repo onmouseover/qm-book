@@ -33,7 +33,7 @@
           <div class="form-group">
             <label for="introduce" class="col-sm-2 control-label">推广链接：</label>
             <div class="col-sm-4">
-              http://xxx.com/regist?toUserId=${userInfo.userId}
+              http://localhost:8080/regist?toUserId=${userInfo.userId}
             </div>
           </div>
           </form>

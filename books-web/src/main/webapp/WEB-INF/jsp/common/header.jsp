@@ -8,10 +8,12 @@
       <ul class="nav navbar-nav">
         <li><a href="/index">首页</a>
         </li>
+        <c:if test="${userInfo ne null}">
         <li><a href="/mybook">我的资源</a>
         </li>
         <li><a href="/shareBooks">分享资源</a>
         </li>
+        </c:if>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -19,12 +21,17 @@
         </div>
         <button type="submit" class="btn btn-warning">Search</button>
       </form>
-      <c:if test="${userInfo eq null}">
+
         <ul class="nav navbar-nav navbar-right">
+          <c:if test="${userInfo eq null}">
           <li><a href="/regist">加入我们</a></li>
           <li><a href="/login">登陆</a></li>
+          </c:if>
+          <c:if test="${userInfo ne null}">
+            <li><a href="/userInfo">我的信息</a></li>
+          </c:if>
         </ul>
-      </c:if>
+
 
     </div>
   </div>

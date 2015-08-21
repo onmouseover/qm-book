@@ -33,15 +33,21 @@ public class LoginController {
         try {
             if(StringUtils.isBlank(tbUser.getUserName()) || StringUtils.isBlank(tbUser.getPassword())){
                 model.addAttribute("msg","请输入正确的用户名或密码！");
-                model.addAttribute("url","/regist");
-                model.addAttribute("actionName","继续注册！");
+                model.addAttribute("url","/login");
+                model.addAttribute("actionName","登陆");
                 return "error";
             }
-            TbUser userInfo = bookService.register(tbUser);
+            TbUser userInfo = bookService.getUserByName(tbUser.getUserName());
+            if(userInfo == null || !tbUser.getPassword().equals(userInfo.getPassword())){
+                model.addAttribute("msg","用户名或密码错误！");
+                model.addAttribute("url","/login");
+                model.addAttribute("actionName","登陆");
+                return "error";
+            }
             request.getSession().setAttribute("userInfo",userInfo);
-        } catch (CheckedException e) {
+        } catch (Exception e) {
             return "addError";
         }
-        return "success";
+        return "index";
     }
 }

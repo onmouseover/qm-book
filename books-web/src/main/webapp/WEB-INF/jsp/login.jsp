@@ -19,9 +19,9 @@
       <div class="row">
         <div class="col-sm-12 pad-xs">
           <div class="row-content">
-            <div class="col-sm-8 col-sm-offset-2">
-              <h1 id="home-header" class="text-center">期待你，加入我们！ <span id="cloud-hosting-for" class="animated fadeInLeft">You.</span></h1>
-              <p id="high-performance" class="lead text-center">High performance SSD Linux servers for all of your infrastructure needs.</p>
+            <div class="col-sm-8 col-sm-offset-1">
+              <h1 id="home-header" class="text-center">&nbsp;&nbsp;Share me and <span id="cloud-hosting-for" class="animated fadeInLeft">You.</span></h1>
+              <p id="high-performance" class="lead text-center">&nbsp;&nbsp;共享你的资源，分享你我的世界！</p>
             </div>
           </div>
 
@@ -30,17 +30,16 @@
 
             <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-3">
 
-              <form action="/doRegist" method="post">
-                <input type="hidden" name="pointUserId" value="${toUserId}" />
+              <form action="/doLogin" method="post">
                 <div class="form-group">
-                  <input name="userName" type="text" class="form-control input-lg" placeholder="Choose a username">
+                  <input name="userName" type="text" class="form-control input-lg" placeholder="请输入用户名">
                 </div>
                 <div class="form-group">
-                  <input name="password" type="password" class="form-control input-lg" placeholder="Choose a password">
+                  <input name="password" type="password" class="form-control input-lg" placeholder="请输入密码">
                 </div>
 
                 <div class="form-group">
-                  <button type="submit" class="btn btn-success btn-lg btn-block btn-border">Create Account</button>
+                  <button type="submit" class="btn btn-primary btn-lg btn-block btn-border">Login</button>
                 </div>
               </form>
             </div>
