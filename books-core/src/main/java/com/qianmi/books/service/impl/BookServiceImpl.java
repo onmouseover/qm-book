@@ -133,53 +133,99 @@ public class BookServiceImpl implements BookService {
         tbBook.setAddTime(new Date());
         tbBook.setBookId(UUIDGener.getUUID());
         tbBook.setState(Contents.BookState.CAN_BORROW);
+        this.tbBookDao.insertTbBook(tbBook);
     }
 
     @Override
     public void modifyBook(TbBook tbBook) throws CheckedException {
-
+        int row = this.tbBookDao.updateTbBook(tbBook);
+        if (row == 0) {
+            throw new CheckedException("修改书籍失败");
+        }
     }
 
     @Override
     public void modifyBookState(String bookId, int state) throws CheckedException {
-
+        TbBook tbBook = new TbBook();
+        tbBook.setBookId(bookId);
+        tbBook.setState(state);
+        int row = this.tbBookDao.updateTbBook(tbBook);
+        if (row == 0) {
+            throw new CheckedException("修改状态失败");
+        }
     }
 
     @Override
     public void deleteBook(String bookId) throws CheckedException {
-
+        int row = this.tbBookDao.deleteTbBook(bookId);
+        if (row == 0) {
+            throw new CheckedException("删除书籍失败");
+        }
     }
 
     @Override
     public List<TbBook> queryBookList(TbBook tbBook) throws CheckedException {
-        List<TbBook> list = new ArrayList<TbBook>();
-        list.add(new TbBook());
+        List<TbBook> list = this.tbBookDao.getTbBookList(tbBook);
         return list;
     }
 
     @Override
     public TbBook queryBookDetail(String bookId) throws CheckedException {
-        return new TbBook();
-
+        TbBook tbBook = this.tbBookDao.getTbBook(bookId);
+        return tbBook;
     }
 
     @Override
     public void confirmBookBack(String sellerUserId, String borrowId) throws CheckedException {
+        TbBookBorrow tbBookBorrow = this.tbBookBorrowDao.getTbBookBorrow(borrowId);
+        if (Contents.BookBorrowState.UNBACK != tbBookBorrow.getState()) {
+            throw new CheckedException("当前书不是为归还状态");
+        }
 
+        TbBookBorrow tbBookBorrowUpdate = new TbBookBorrow();
+        tbBookBorrowUpdate.setBorrowId(borrowId);
+        tbBookBorrowUpdate.setState(Contents.BookBorrowState.BACK);
+        tbBookBorrowUpdate.setEndTime(new Date());
+        int row = this.tbBookBorrowDao.updateTbBookBorrow(tbBookBorrowUpdate);
+        if (row == 0) {
+            throw new CheckedException("确认收到还书失败");
+        }
+        TbBook tbBookUpdate = new TbBook();
+        tbBookUpdate.setBookId(tbBookBorrow.getBookId());
+        tbBookUpdate.setState(Contents.BookState.CAN_BORROW);
+        this.tbBookDao.updateTbBook(tbBookUpdate);
     }
 
     @Override
     public TbUser register(TbUser tbUser) throws CheckedException {
-        return null;
+
+        if (this.getUserByName(tbUser.getUserName()) != null) {
+            throw new CheckedException("已经存在：" + tbUser.getUserName() + " 的用户");
+
+        }
+        tbUser.setRegTime(new Date());
+        this.tbUserDao.insertTbUser(tbUser);
+        return tbUserDao.getTbUser(tbUser.getUserId());
     }
 
-    @Override
-    public TbUser login(String userId) throws CheckedException {
-        return null;
-    }
 
     @Override
     public TbUser getUser(String userId) throws CheckedException {
-        return null;
+        TbUser tbUser = this.tbUserDao.getTbUser(userId);
+        return tbUser;
+    }
+
+
+    @Override
+    public TbUser getUserByName(String userName) throws CheckedException {
+        TbUser tbUserQuery = new TbUser();
+        tbUserQuery.setUserName(userName);
+        List<TbUser> tbUserList = this.tbUserDao.getTbUserList(tbUserQuery);
+        if (tbUserList.size() == 0) {
+            return null;
+
+        } else {
+            return tbUserList.get(0);
+        }
     }
 }
