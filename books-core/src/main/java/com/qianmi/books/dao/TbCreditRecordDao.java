@@ -7,6 +7,8 @@ import java.util.List;
 public interface TbCreditRecordDao {
     public List<TbCreditRecord> getTbCreditRecordList(TbCreditRecord tbCreditRecord);
 
+    public TbCreditRecord getTbCreditRecord(String recordId);
+
     public void insertTbCreditRecord(TbCreditRecord tbCreditRecord);
 
     public int updateTbCreditRecord(TbCreditRecord tbCreditRecord);

@@ -165,13 +165,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<TbBook> queryBookList(TbBook tbBook) throws CheckedException {
+    public List<TbBook> queryBookList(TbBook tbBook) {
         List<TbBook> list = this.tbBookDao.getTbBookList(tbBook);
         return list;
     }
 
     @Override
-    public TbBook queryBookDetail(String bookId) throws CheckedException {
+    public TbBook queryBookDetail(String bookId) {
         TbBook tbBook = this.tbBookDao.getTbBook(bookId);
         return tbBook;
     }
@@ -212,14 +212,14 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public TbUser getUser(String userId) throws CheckedException {
+    public TbUser getUser(String userId) {
         TbUser tbUser = this.tbUserDao.getTbUser(userId);
         return tbUser;
     }
 
 
     @Override
-    public TbUser getUserByName(String userName) throws CheckedException {
+    public TbUser getUserByName(String userName) {
         TbUser tbUserQuery = new TbUser();
         tbUserQuery.setUserName(userName);
         List<TbUser> tbUserList = this.tbUserDao.getTbUserList(tbUserQuery);
@@ -274,5 +274,15 @@ public class BookServiceImpl implements BookService {
         tbCreditRecord.setType(Contents.CreditType.DEPOSIT);
         tbCreditRecord.setUserId(userId);
         this.tbCreditRecordDao.insertTbCreditRecord(tbCreditRecord);
+    }
+
+    @Override
+    public TbCreditRecord getTbCreditRecord(String recordId) {
+        return this.tbCreditRecordDao.getTbCreditRecord(recordId);
+    }
+
+    @Override
+    public List<TbCreditRecord> getTbCreditRecordList(TbCreditRecord tbCreditRecord) {
+        return this.tbCreditRecordDao.getTbCreditRecordList(tbCreditRecord);
     }
 }
