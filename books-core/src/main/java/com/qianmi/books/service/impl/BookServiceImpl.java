@@ -150,10 +150,14 @@ public class BookServiceImpl implements BookService {
     public void lend(String borrowUserId, String sellerUserId, String bookId, String borrowUserKey) throws CheckedException {
         TbBook tbBook = this.tbBookDao.getTbBook(bookId);
         if (Contents.BookState.CAN_BORROW != tbBook.getState()) {
-            throw new CheckedException("当前书不可预约");
+            throw new CheckedException("当前书不可借出");
         }
 
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
+        if (!tbUser.getBorrowKey().equals(borrowUserKey)) {
+            throw new CheckedException("借书码不正确");
+        }
+
         TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
 
         TbBook tbBookUpdate = new TbBook();
