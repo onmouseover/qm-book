@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    @Autowired
-    TestDao testDao;
     @RequestMapping(value = "index",method = RequestMethod.GET)
     public String main() {
         return "index";

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="common/taglibs.jsp"></jsp:include>
 <html lang="en"><head>
-  <script async="" src="//www.google-analytics.com/analytics.js"></script><script src="//cdn.optimizely.com/js/1141215513.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,35 +12,7 @@
   <link href="/css/style.css" rel="stylesheet">
  </head>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="/index">首页</a>
-        </li>
-        <li><a href="/mybook">我的资源</a>
-        </li>
-        <li><a href="/shareBooks">分享资源</a>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-warning">Search</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">加入我们</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
+<jsp:include page="common/header.jsp"></jsp:include>
 <div class="jumbotron">
   <div class="container">
     <div style="text-align: center;" style="padding-top:40px"><h1>QM Hackathon In NanJing</h1> </div>
