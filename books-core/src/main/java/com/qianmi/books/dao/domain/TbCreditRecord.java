@@ -6,6 +6,9 @@ public class TbCreditRecord {
     private String recordId;
     private String userId;
     private Date recordTime;
+    /**
+     * 资金类型 1:押金支出 2:看书支出 3:过期扣除 4:提现 11:押金退还 12:借书收入 13:过期收入  14:充值
+     */
     private Integer type;
     private String borrowId;
 

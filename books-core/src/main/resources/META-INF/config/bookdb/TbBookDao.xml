@@ -27,7 +27,7 @@
 		    t.book_id=#bookId#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="bookName">
-		    t.book_name=#bookName#
+		    t.book_name like '%' || #bookName# || '%'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="sellerId">
 		    t.seller_id=#sellerId#

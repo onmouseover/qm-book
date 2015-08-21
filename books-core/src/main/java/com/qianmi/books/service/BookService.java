@@ -4,6 +4,7 @@ import com.qianmi.books.dao.domain.TbBook;
 import com.qianmi.books.dao.domain.TbUser;
 import com.qianmi.books.exception.CheckedException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -112,14 +113,7 @@ public interface BookService {
      * @throws CheckedException
      */
     TbUser register(TbUser tbUser) throws CheckedException;
-    /**
-     * 用户登录
-     *
-     * @param userId
-     * @return
-     * @throws CheckedException
-     */
-    TbUser login(String userId) throws CheckedException;
+
 
     /**
      * 获取用户
@@ -131,4 +125,31 @@ public interface BookService {
     TbUser getUser(String userId) throws CheckedException;
 
 
+
+    /**
+     * 获取用户
+     *
+     * @param userName
+     * @return
+     * @throws CheckedException
+     */
+    TbUser getUserByName(String userName) throws CheckedException;
+
+    /**
+     * 提现
+     *
+     * @param userId
+     * @param cash
+     * @throws CheckedException
+     */
+    void withdraw(String userId, BigDecimal cash) throws CheckedException;
+
+    /**
+     * 充值
+     *
+     * @param userId
+     * @param cash
+     * @throws CheckedException
+     */
+    void deposit(String userId, BigDecimal cash) throws CheckedException;
 }
