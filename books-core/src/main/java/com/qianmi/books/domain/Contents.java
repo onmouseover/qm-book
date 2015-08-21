@@ -48,6 +48,9 @@ public interface Contents {
          * 历史
          */
         int LISHI = 3;
-
+        /**
+         * 其他
+         */
+        int OTHER = 4;
     }
 }
