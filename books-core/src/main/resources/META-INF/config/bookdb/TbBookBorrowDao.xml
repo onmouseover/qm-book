@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TB_BOOK_BORROW">
+    <typeAlias alias="TbBookBorrow" type="com.qianmi.books.dao.domain.TbBookBorrow"/>
+
+    <select id="getTbBookBorrowList" parameterClass="TbBookBorrow" resultClass="TbBookBorrow">
+        select
+        t.borrow_id as "borrowId"
+        ,t.book_id as "bookId"
+        ,t.book_name as "bookName"
+        ,t.start_time as "startTime"
+        ,t.end_time as "endTime"
+        ,t.borrow_user_id as "borrowUserId"
+        ,t.state as "state"
+        ,t.seller_user_id as "sellerUserId"
+        ,t.point_user_id as "pointUserId"
+        ,t.back_point as "backPoint"
+        ,t.borrow_cash as "borrowCash"
+        ,t.borrow_deposit as "borrowDeposit"
+        from TB_BOOK_BORROW t
+        where 1=1
+        <isNotEmpty prepend="and" property="borrowId">
+            t.borrow_id=#borrowId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="bookId">
+            t.book_id=#bookId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="bookName">
+            t.book_name=#bookName#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="startTime">
+            t.start_time=#startTime#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="endTime">
+            t.end_time=#endTime#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="borrowUserId">
+            t.borrow_user_id=#borrowUserId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="state">
+            t.state=#state#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="sellerUserId">
+            t.seller_user_id=#sellerUserId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="pointUserId">
+            t.point_user_id=#pointUserId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="backPoint">
+            t.back_point=#backPoint#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="borrowCash">
+            t.borrow_cash=#borrowCash#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="borrowDeposit">
+            t.borrow_deposit=#borrowDeposit#
+        </isNotEmpty>
+        order by t.borrow_id
+    </select>
+
+    <insert id="insertTbBookBorrow" parameterClass="TbBookBorrow">
+        insert into TB_BOOK_BORROW(
+        <dynamic prepend=" ">
+            <isNotEmpty prepend="," property="borrowId">
+                borrow_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="bookId">
+                book_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="bookName">
+                book_name
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="startTime">
+                start_time
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="endTime">
+                end_time
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowUserId">
+                borrow_user_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="state">
+                state
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sellerUserId">
+                seller_user_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pointUserId">
+                point_user_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="backPoint">
+                back_point
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowCash">
+                borrow_cash
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowDeposit">
+                borrow_deposit
+            </isNotEmpty>
+        </dynamic>
+        )
+        values(
+        <dynamic prepend=" ">
+            <isNotEmpty prepend="," property="borrowId">
+                #borrowId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="bookId">
+                #bookId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="bookName">
+                #bookName#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="startTime">
+                #startTime#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="endTime">
+                #endTime#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowUserId">
+                #borrowUserId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="state">
+                #state#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sellerUserId">
+                #sellerUserId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pointUserId">
+                #pointUserId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="backPoint">
+                #backPoint#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowCash">
+                #borrowCash#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="borrowDeposit">
+                #borrowDeposit#
+            </isNotEmpty>
+        </dynamic>
+        )
+    </insert>
+
+    <update id="updateTbBookBorrow" parameterClass="TbBookBorrow">
+        update TB_BOOK_BORROW set
+        <dynamic prepend=" ">
+            <isNotNull prepend="," property="bookId">
+                book_id=#bookId#
+            </isNotNull>
+            <isNotNull prepend="," property="bookName">
+                book_name=#bookName#
+            </isNotNull>
+            <isNotNull prepend="," property="startTime">
+                start_time=#startTime#
+            </isNotNull>
+            <isNotNull prepend="," property="endTime">
+                end_time=#endTime#
+            </isNotNull>
+            <isNotNull prepend="," property="borrowUserId">
+                borrow_user_id=#borrowUserId#
+            </isNotNull>
+            <isNotNull prepend="," property="state">
+                state=#state#
+            </isNotNull>
+            <isNotNull prepend="," property="sellerUserId">
+                seller_user_id=#sellerUserId#
+            </isNotNull>
+            <isNotNull prepend="," property="pointUserId">
+                point_user_id=#pointUserId#
+            </isNotNull>
+            <isNotNull prepend="," property="backPoint">
+                back_point=#backPoint#
+            </isNotNull>
+            <isNotNull prepend="," property="borrowCash">
+                borrow_cash=#borrowCash#
+            </isNotNull>
+            <isNotNull prepend="," property="borrowDeposit">
+                borrow_deposit=#borrowDeposit#
+            </isNotNull>
+        </dynamic>
+        where borrow_id=#borrowId#
+    </update>
+
+    <delete id="deleteTbBookBorrow" parameterClass="Map">
+		 delete from TB_BOOK_BORROW where borrow_id=#borrowId# 
+	</delete>
+</sqlMap>
