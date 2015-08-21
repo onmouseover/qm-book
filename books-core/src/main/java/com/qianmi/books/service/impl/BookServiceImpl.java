@@ -11,6 +11,8 @@ import com.qianmi.books.dao.domain.TbUser;
 import com.qianmi.books.domain.Contents;
 import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.service.BookService;
+import com.qianmi.books.util.uud.UUID;
+import com.qianmi.books.util.uud.UUIDGener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,11 +68,54 @@ public class BookServiceImpl implements BookService {
         if (tbBookList.size() == 0) {
             throw new CheckedException("此预约码已过期或不存在");
         }
+        TbBook tbBook = tbBookList.get(0);
 
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
 
-        TbBook tbBook = tbBookList.get(0);
+        TbBook tbBookUpdate = new TbBook();
+        tbBookUpdate.setBookId(tbBook.getBookId());
+        tbBookUpdate.setState(Contents.BookState.LENDED);
+        tbBookUpdate.setApplyUserId("");
+        tbBookUpdate.setApplyId("");
+        int row = tbBookDao.updateTbBook(tbBookUpdate);
+        if (row == 0) {
+            throw new CheckedException("更新为已借出失败");
+        }
+
         TbBookBorrow tbBookBorrow = new TbBookBorrow();
+        tbBookBorrow.setBorrowId(UUIDGener.getUUID());
+        tbBookBorrow.setBookId(tbBook.getBookId());
+        tbBookBorrow.setBackPoint(tbBook.getBackPoint());
+        tbBookBorrow.setBookName(tbBook.getBookName());
+        tbBookBorrow.setBorrowCash(tbBook.getBorrowCash());
+        tbBookBorrow.setBorrowDeposit(tbBook.getBorrowDeposit());
+        tbBookBorrow.setBorrowUserId(borrowUserId);
+        tbBookBorrow.setPointUserId(tbUser.getPointUserId());
+        tbBookBorrow.setStartTime(new Date());
+        tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
+        this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
+
+    }
+
+    @Override
+    public void lend(String borrowUserId, String sellerUserId, String bookId, String borrowUserKey) throws CheckedException {
+        TbBook tbBook = this.tbBookDao.getTbBook(bookId);
+        if (Contents.BookState.CAN_BORROW != tbBook.getState()) {
+            throw new CheckedException("当前书不可预约");
+        }
+
+        TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
+
+        TbBook tbBookUpdate = new TbBook();
+        tbBookUpdate.setBookId(tbBook.getBookId());
+        tbBookUpdate.setState(Contents.BookState.LENDED);
+        int row = tbBookDao.updateTbBook(tbBookUpdate);
+        if (row == 0) {
+            throw new CheckedException("更新为已借出失败");
+        }
+
+        TbBookBorrow tbBookBorrow = new TbBookBorrow();
+        tbBookBorrow.setBorrowId(UUIDGener.getUUID());
         tbBookBorrow.setBookId(tbBook.getBookId());
         tbBookBorrow.setBackPoint(tbBook.getBackPoint());
         tbBookBorrow.setBookName(tbBook.getBookName());
@@ -84,13 +129,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void lend(String borrowUserId, String sellerUserId, String bookId, String borrowUserKey) throws CheckedException {
-
-    }
-
-    @Override
     public void addBook(TbBook tbBook) throws CheckedException {
-
+        tbBook.setAddTime(new Date());
+        tbBook.setBookId(UUIDGener.getUUID());
+        tbBook.setState(Contents.BookState.CAN_BORROW);
     }
 
     @Override

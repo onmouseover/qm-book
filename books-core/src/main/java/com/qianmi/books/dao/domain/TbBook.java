@@ -36,6 +36,16 @@ public class TbBook {
     private String applyId;
     /** 预约人编号 */
     private String applyUserId;
+    /** 书的类型 1:文学 2:技术 3:历史 */
+    private Integer bookType;
+
+    public Integer getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(Integer bookType) {
+        this.bookType = bookType;
+    }
 
     public String getApplyUserId() {
         return applyUserId;
