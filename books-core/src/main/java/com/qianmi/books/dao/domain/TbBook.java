@@ -32,6 +32,18 @@ public class TbBook {
     private Integer backPoint;
     /** 借阅押金 */
     private BigDecimal borrowDeposit;
+    /** 预约编号 */
+    private String applyId;
+    /** 预约人编号 */
+    private String applyUserId;
+
+    public String getApplyUserId() {
+        return applyUserId;
+    }
+
+    public void setApplyUserId(String applyUserId) {
+        this.applyUserId = applyUserId;
+    }
 
     public String getBookId() {
         return bookId;
@@ -145,4 +157,11 @@ public class TbBook {
         this.borrowDeposit = borrowDeposit;
     }
 
+    public String getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(String applyId) {
+        this.applyId = applyId;
+    }
 }

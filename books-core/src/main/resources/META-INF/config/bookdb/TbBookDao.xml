@@ -19,7 +19,8 @@
 		,t.borrow_cash as "borrowCash"
 		,t.back_point as "backPoint"
 		,t.borrow_deposit as "borrowDeposit"
-		from TB_BOOK t 
+        ,t.apply_id as "applyId"
+        from TB_BOOK t
 		where 1=1
 		<isNotEmpty prepend="and" property="bookId">
 		    t.book_id=#bookId#
@@ -63,6 +64,12 @@
 		<isNotEmpty prepend="and" property="borrowDeposit">
 		    t.borrow_deposit=#borrowDeposit#
 		</isNotEmpty>
+        <isNotEmpty prepend="and" property="applyId">
+            t.apply_id=#applyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="applyUserId">
+            t.apply_user_id=#applyUserId#
+        </isNotEmpty>
 			order by t.book_id
 	</select>
 
@@ -203,6 +210,12 @@
 		<isNotNull prepend="," property="borrowDeposit">
 			borrow_deposit=#borrowDeposit# 
 		</isNotNull>
+        <isNotNull prepend="," property="applyId">
+            apply_id=#applyId#
+        </isNotNull>
+        <isNotNull prepend="," property="applyUserId">
+            apply_user_id=#applyUserId#
+        </isNotNull>
 		</dynamic>
 			where book_id=#bookId# 
 	</update>

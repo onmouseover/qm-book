@@ -5,11 +5,13 @@ import com.qianmi.books.dao.domain.TbBookBorrow;
 import java.util.List;
 
 public interface TbBookBorrowDao {
-    public List<TbBookBorrow> getTbBookBorrowList(TbBookBorrow tbBookBorrow) throws Exception;
+    public List<TbBookBorrow> getTbBookBorrowList(TbBookBorrow tbBookBorrow);
 
-    public void insertTbBookBorrow(TbBookBorrow tbBookBorrow) throws Exception;
+    public TbBookBorrow getTbBookBorrow(String borrowId);
 
-    public int updateTbBookBorrow(TbBookBorrow tbBookBorrow) throws Exception;
+    public void insertTbBookBorrow(TbBookBorrow tbBookBorrow);
 
-    public int deleteTbBookBorrow(String borrowId) throws Exception;
+    public int updateTbBookBorrow(TbBookBorrow tbBookBorrow);
+
+    public int deleteTbBookBorrow(String borrowId);
 }
