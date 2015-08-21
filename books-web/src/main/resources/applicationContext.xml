@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        				   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						   http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						   http://www.springframework.org/schema/aop
+	    				   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!--Spring 扫描除controller以外的Bean -->
+	<context:component-scan base-package="com.qianmi.books" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <!-- 使用annotation定义Aspect -->
+    <aop:aspectj-autoproxy/>
+
+	<!-- 加载异常编码 -->
+	<bean id="salePropertyConfigurer" class="com.qianmi.books.util.BookPropertyConfigurer">
+		<property name="locations">
+			<list>
+                <value>classpath:/config.properties</value>
+                <value>classpath:/constants.properties</value>
+            </list>
+		</property>
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="searchSystemEnvironment" value="true" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+	</bean>
+
+    <bean id="booksdbMapClient" class="com.qianmi.books.dao.base.MySqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:/META-INF/config/sqlmap-config.xml" />
+        <property name="mappingLocations" value="classpath*:/META-INF/config/bookdb/sql_label_*.xml"></property>
+        <property name="dataSource" ref="booksdbDataSource" />
+        <property name="pageQuery" ref="MysqlDefaultPageQuery"></property>
+    </bean>
+    <bean id="MysqlDefaultPageQuery" class="com.qianmi.books.dao.base.MysqlDefaultPageQuery"></bean>
+
+    <bean id="booksdbDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${booksdb.dataSourceClassName}" />
+        <property name="url" value="${booksdb.url}" />
+        <property name="username" value="${booksdb.user}" />
+        <property name="password" value="${booksdb.password}" />
+
+        <property name="initialSize" value="${booksdb.poolSize}" />
+        <property name="maxActive" value="${booksdb.maxPoolSize}" />
+        <property name="maxIdle" value="${booksdb.minPoolSize}" />
+        <property name="maxWait" value="${booksdb.maxWait}" />
+
+        <property name="removeAbandoned" value="${dbcommon.removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${dbcommon.removeAbandonedTimeout}" />
+        <property name="testWhileIdle" value="${dbcommon.testWhileIdle}" />
+        <property name="testOnBorrow" value="${dbcommon.testOnBorrow}" />
+        <property name="testOnReturn" value="${dbcommon.testOnReturn}" />
+        <property name="validationQuery" value="${dbcommon.validationQuery}" />
+        <property name="validationQueryTimeout" value="${dbcommon.validationQueryTimeout}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${dbcommon.timeBetweenEvictionRunsMillis}" />
+        <property name="numTestsPerEvictionRun" value="${dbcommon.numTestsPerEvictionRun}" />
+
+        <property name="defaultAutoCommit" value="true" />
+
+    </bean>
+</beans>

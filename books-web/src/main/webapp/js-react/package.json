@@ -1,0 +1,16 @@
+{
+  "name": "testkoa",
+  "version": "0.0.1",
+  "main": "app.js",
+  "dependencies": {
+    "bundle-loader": "^0.5.4",
+    "node-jsx": "*",
+    "react": "^0.13.3",
+    "immutable":"*",
+    "react-router": "1.0.0-beta3",
+    "iflux":"*"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.13.2"
+  }
+}
