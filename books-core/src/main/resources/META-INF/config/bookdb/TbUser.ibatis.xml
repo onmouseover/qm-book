@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TB_USER">
+	<typeAlias alias="TbUser" type="com.qianmi.books.dao.domain.TbUser"/>
+
+	<select id="getTbUserList" parameterClass="TbUser" resultClass="TbUser" >
+		 select 
+		t.user_id as "userId"
+		,t.user_name as "userName"
+		,t.password as "password"
+		,t.type as "type"
+		,t.point_user_id as "pointUserId"
+		,t.reg_time as "regTime"
+		,t.blance as "blance"
+		,t.borrow_count as "borrowCount"
+		from TB_USER t 
+		where 1=1
+		<isNotEmpty prepend="and" property="userId">
+		    t.user_id=#userId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userName">
+		    t.user_name=#userName#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="password">
+		    t.password=#password#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="type">
+		    t.type=#type#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="pointUserId">
+		    t.point_user_id=#pointUserId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="regTime">
+		    t.reg_time=#regTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="blance">
+		    t.blance=#blance#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="borrowCount">
+		    t.borrow_count=#borrowCount#
+		</isNotEmpty>
+			order by t.user_id
+	</select>
+
+	<insert id="insertTbUser" parameterClass="TbUser">
+		 insert into TB_USER(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="userId">
+			user_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="userName">
+			user_name
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="password">
+			password
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			type
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pointUserId">
+			point_user_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="regTime">
+			reg_time
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="blance">
+			blance
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCount">
+			borrow_count
+		</isNotEmpty>
+		</dynamic>
+		)
+		values(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="userId">
+			#userId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="userName">
+			#userName# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="password">
+			#password# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			#type# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pointUserId">
+			#pointUserId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="regTime">
+			#regTime# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="blance">
+			#blance# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCount">
+			#borrowCount# 
+		</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+	<update id="updateTbUser" parameterClass="TbUser">
+		 update TB_USER set 
+		<dynamic prepend=" ">
+		<isNotNull prepend="," property="userName">
+			user_name=#userName# 
+		</isNotNull>
+		<isNotNull prepend="," property="password">
+			password=#password# 
+		</isNotNull>
+		<isNotNull prepend="," property="type">
+			type=#type# 
+		</isNotNull>
+		<isNotNull prepend="," property="pointUserId">
+			point_user_id=#pointUserId# 
+		</isNotNull>
+		<isNotNull prepend="," property="regTime">
+			reg_time=#regTime# 
+		</isNotNull>
+		<isNotNull prepend="," property="blance">
+			blance=#blance# 
+		</isNotNull>
+		<isNotNull prepend="," property="borrowCount">
+			borrow_count=#borrowCount# 
+		</isNotNull>
+		</dynamic>
+			where user_id=#userId# 
+	</update>
+
+	<delete id="deleteTbUser" parameterClass="Map">
+		 delete from TB_USER where user_id=#userId# 
+	</delete>
+</sqlMap>

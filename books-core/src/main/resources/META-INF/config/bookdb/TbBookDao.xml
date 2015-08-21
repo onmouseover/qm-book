@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TB_BOOK">
+	<typeAlias alias="TbBook" type="com.qianmi.books.dao.domain.TbBook"/>
+
+	<select id="getTbBookList" parameterClass="TbBook" resultClass="TbBook" >
+		 select 
+		t.book_id as "bookId"
+		,t.book_name as "bookName"
+		,t.seller_id as "sellerId"
+		,t.owner as "owner"
+		,t.state as "state"
+		,t.add_time as "addTime"
+		,t.page_size as "pageSize"
+		,t.author as "author"
+		,t.introduce as "introduce"
+		,t.picture_url as "pictureUrl"
+		,t.borrow_count as "borrowCount"
+		,t.borrow_cash as "borrowCash"
+		,t.back_point as "backPoint"
+		,t.borrow_deposit as "borrowDeposit"
+		from TB_BOOK t 
+		where 1=1
+		<isNotEmpty prepend="and" property="bookId">
+		    t.book_id=#bookId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="bookName">
+		    t.book_name=#bookName#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sellerId">
+		    t.seller_id=#sellerId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="owner">
+		    t.owner=#owner#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+		    t.state=#state#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="addTime">
+		    t.add_time=#addTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="pageSize">
+		    t.page_size=#pageSize#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="author">
+		    t.author=#author#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="introduce">
+		    t.introduce=#introduce#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="pictureUrl">
+		    t.picture_url=#pictureUrl#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="borrowCount">
+		    t.borrow_count=#borrowCount#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="borrowCash">
+		    t.borrow_cash=#borrowCash#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="backPoint">
+		    t.back_point=#backPoint#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="borrowDeposit">
+		    t.borrow_deposit=#borrowDeposit#
+		</isNotEmpty>
+			order by t.book_id
+	</select>
+
+	<insert id="insertTbBook" parameterClass="TbBook">
+		 insert into TB_BOOK(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="bookId">
+			book_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bookName">
+			book_name
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sellerId">
+			seller_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="owner">
+			owner
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="state">
+			state
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="addTime">
+			add_time
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pageSize">
+			page_size
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="author">
+			author
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="introduce">
+			introduce
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pictureUrl">
+			picture_url
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCount">
+			borrow_count
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCash">
+			borrow_cash
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="backPoint">
+			back_point
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowDeposit">
+			borrow_deposit
+		</isNotEmpty>
+		</dynamic>
+		)
+		values(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="bookId">
+			#bookId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bookName">
+			#bookName# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sellerId">
+			#sellerId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="owner">
+			#owner# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="state">
+			#state# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="addTime">
+			#addTime# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pageSize">
+			#pageSize# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="author">
+			#author# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="introduce">
+			#introduce# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pictureUrl">
+			#pictureUrl# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCount">
+			#borrowCount# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowCash">
+			#borrowCash# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="backPoint">
+			#backPoint# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowDeposit">
+			#borrowDeposit# 
+		</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+	<update id="updateTbBook" parameterClass="TbBook">
+		 update TB_BOOK set 
+		<dynamic prepend=" ">
+		<isNotNull prepend="," property="bookName">
+			book_name=#bookName# 
+		</isNotNull>
+		<isNotNull prepend="," property="sellerId">
+			seller_id=#sellerId# 
+		</isNotNull>
+		<isNotNull prepend="," property="owner">
+			owner=#owner# 
+		</isNotNull>
+		<isNotNull prepend="," property="state">
+			state=#state# 
+		</isNotNull>
+		<isNotNull prepend="," property="addTime">
+			add_time=#addTime# 
+		</isNotNull>
+		<isNotNull prepend="," property="pageSize">
+			page_size=#pageSize# 
+		</isNotNull>
+		<isNotNull prepend="," property="author">
+			author=#author# 
+		</isNotNull>
+		<isNotNull prepend="," property="introduce">
+			introduce=#introduce# 
+		</isNotNull>
+		<isNotNull prepend="," property="pictureUrl">
+			picture_url=#pictureUrl# 
+		</isNotNull>
+		<isNotNull prepend="," property="borrowCount">
+			borrow_count=#borrowCount# 
+		</isNotNull>
+		<isNotNull prepend="," property="borrowCash">
+			borrow_cash=#borrowCash# 
+		</isNotNull>
+		<isNotNull prepend="," property="backPoint">
+			back_point=#backPoint# 
+		</isNotNull>
+		<isNotNull prepend="," property="borrowDeposit">
+			borrow_deposit=#borrowDeposit# 
+		</isNotNull>
+		</dynamic>
+			where book_id=#bookId# 
+	</update>
+
+	<delete id="deleteTbBook" parameterClass="Map">
+		 delete from TB_BOOK where book_id=#bookId# 
+	</delete>
+</sqlMap>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TB_CREDIT_RECORD">
+	<typeAlias alias="TbCreditRecord" type="com.qianmi.books.dao.domain.TbCreditRecord"/>
+
+	<select id="getTbCreditRecordList" parameterClass="TbCreditRecord" resultClass="TbCreditRecord" >
+		 select 
+		t.record_id as "recordId"
+		,t.user_id as "userId"
+		,t.record_time as "recordTime"
+		,t.type as "type"
+		,t.borrow_id as "borrowId"
+		from TB_CREDIT_RECORD t 
+		where 1=1
+		<isNotEmpty prepend="and" property="recordId">
+		    t.record_id=#recordId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userId">
+		    t.user_id=#userId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="recordTime">
+		    t.record_time=#recordTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="type">
+		    t.type=#type#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="borrowId">
+		    t.borrow_id=#borrowId#
+		</isNotEmpty>
+			order by t.record_id
+	</select>
+
+	<insert id="insertTbCreditRecord" parameterClass="TbCreditRecord">
+		 insert into TB_CREDIT_RECORD(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="recordId">
+			record_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="userId">
+			user_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="recordTime">
+			record_time
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			type
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowId">
+			borrow_id
+		</isNotEmpty>
+		</dynamic>
+		)
+		values(
+		<dynamic prepend=" ">
+		<isNotEmpty prepend="," property="recordId">
+			#recordId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="userId">
+			#userId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="recordTime">
+			#recordTime# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="type">
+			#type# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="borrowId">
+			#borrowId# 
+		</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+	<update id="updateTbCreditRecord" parameterClass="TbCreditRecord">
+		 update TB_CREDIT_RECORD set 
+		<dynamic prepend=" ">
+		<isNotNull prepend="," property="userId">
+			user_id=#userId# 
+		</isNotNull>
+		<isNotNull prepend="," property="recordTime">
+			record_time=#recordTime# 
+		</isNotNull>
+		<isNotNull prepend="," property="type">
+			type=#type# 
+		</isNotNull>
+		<isNotNull prepend="," property="borrowId">
+			borrow_id=#borrowId# 
+		</isNotNull>
+		</dynamic>
+			where record_id=#recordId# 
+	</update>
+
+	<delete id="deleteTbCreditRecord" parameterClass="Map">
+		 delete from TB_CREDIT_RECORD where record_id=#recordId# 
+	</delete>
+</sqlMap>
