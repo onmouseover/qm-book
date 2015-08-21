@@ -1,5 +1,6 @@
 package com.qianmi.books.controller;
 
+import com.qianmi.books.dao.domain.TbUser;
 import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.form.BookForm;
 import com.qianmi.books.service.BookService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -26,11 +29,18 @@ public class ShareBookController extends BaseController {
     }
 
     @RequestMapping(value = "/shareBook", method = RequestMethod.POST)
-    public String createBill(BookForm form){
+    public String createBill(BookForm form,HttpSession session,Model model){
         try {
+            Object obj = session.getAttribute("userInfo");
+            if(obj == null){
+                model.addAttribute("msg","您还没有登陆，请登陆后再操作！");
+                return "error";
+            }
+            TbUser tbUser = (TbUser)obj;
+            form.setOwner(tbUser.getUserId());
             bookService.addBook(form);
         } catch (CheckedException e) {
-            return "error";
+            return "addError";
         }
         return "success";
     }
