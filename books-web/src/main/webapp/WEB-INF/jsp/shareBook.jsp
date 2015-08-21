@@ -26,7 +26,15 @@
         </li>
         <li><a href="/shareBooks">分享资源</a>
         </li>
-        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-warning">Search</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">加入我们</a></li>
       </ul>
     </div>
   </div>

@@ -34,7 +34,7 @@ src: url('/fonts/Lubalin/LubalinGraphStd-Medium.otf') format('opentype');
 
 .jumbotron
 {
-	background: #1b1f30 url(../images/pattern.png) repeat 0 0;
+	background: #1b1f30 url(/images/pattern.png) repeat 0 0;
 	color: #fff;
 	margin-bottom: 5px;
 }

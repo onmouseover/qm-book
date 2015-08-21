@@ -13,7 +13,6 @@ public class IndexController {
     TestDao testDao;
     @RequestMapping(value = "index",method = RequestMethod.GET)
     public String main() {
-        testDao.queryTest();
         return "index";
     }
 }

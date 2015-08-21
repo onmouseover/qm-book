@@ -26,7 +26,15 @@
         </li>
         <li><a href="/shareBooks">分享资源</a>
         </li>
-        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-warning">Search</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">加入我们</a></li>
       </ul>
     </div>
   </div>
@@ -35,16 +43,21 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <div style="text-align: center;"><h1>千米之内必有我师</h1> </div>
+    <div style="text-align: center;" style="padding-top:40px"><h1>QM Hackathon In NanJing</h1> </div>
     <div style="text-align: center;">
-      <div class="col-lg-6 center-block" style="float: none;">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="开启你的神奇之旅！">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-info">搜索</button>
-          </div>
-        </div><!-- /.input-group -->
-      </div>
+      <a href="http://hub.jazz.net/" data-analytics-category="Leadspace buttons" data-analytics-action="JazzHub">
+        <p class="btn btn-primary btn-lg btn-custom-jazz" style="font-family:'Helvetica Neue'; margin: 15px">
+          时间，时间，还是时间 »
+        </span>
+        </p></a>
+      <a href="https://www.bluemix.net/" data-analytics-category="Leadspace buttons" data-analytics-action="BlueMix">
+        <p class="btn btn-primary btn-lg btn-custom-bm" style="font-family:'Helvetica Neue'; margin: 15px">
+          任彩虹划破天空 »
+        </p></a>
+      <a href="http://developer.ibm.com/opentech" data-analytics-category="Leadspace buttons" data-analytics-action="developerWorks OSS">
+        <p class="btn btn-primary btn-lg btn-custom-dw" style="font-family	:'Helvetica Neue'; margin: 15px;">
+          遥望昨夜，此生一梦是云间...
+        </p></a>
     </div>
   </div>
 </div>
