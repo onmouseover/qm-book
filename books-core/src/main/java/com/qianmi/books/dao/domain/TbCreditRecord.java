@@ -1,5 +1,6 @@
 package com.qianmi.books.dao.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class TbCreditRecord {
@@ -11,6 +12,26 @@ public class TbCreditRecord {
      */
     private Integer type;
     private String borrowId;
+
+    private BigDecimal inCash;
+    private BigDecimal outCash;
+
+    public BigDecimal getOutCash() {
+        return outCash;
+    }
+
+    public void setOutCash(BigDecimal outCash) {
+        this.outCash = outCash;
+    }
+
+    public BigDecimal getInCash() {
+
+        return inCash;
+    }
+
+    public void setInCash(BigDecimal inCash) {
+        this.inCash = inCash;
+    }
 
     public String getRecordId() {
         return recordId;

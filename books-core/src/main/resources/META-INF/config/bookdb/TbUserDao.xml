@@ -13,7 +13,9 @@
 		,t.reg_time as "regTime"
 		,t.blance as "blance"
 		,t.borrow_count as "borrowCount"
-		from TB_USER t 
+        ,t.borrow_key as "borrowKey"
+
+        from TB_USER t
 		where 1=1
 		<isNotEmpty prepend="and" property="userId">
 		    t.user_id=#userId#
@@ -39,6 +41,9 @@
 		<isNotEmpty prepend="and" property="borrowCount">
 		    t.borrow_count=#borrowCount#
 		</isNotEmpty>
+        <isNotEmpty prepend="and" property="borrowKey">
+            t.borrow_key=#borrowKey#
+        </isNotEmpty>
 			order by t.user_id
 	</select>
 
@@ -69,6 +74,9 @@
 		<isNotEmpty prepend="," property="borrowCount">
 			borrow_count
 		</isNotEmpty>
+        <isNotEmpty prepend="," property="borrowKey">
+            borrow_key
+        </isNotEmpty>
 		</dynamic>
 		)
 		values(
@@ -125,6 +133,9 @@
 		<isNotNull prepend="," property="borrowCount">
 			borrow_count=#borrowCount# 
 		</isNotNull>
+        <isNotNull prepend="," property="borrowKey">
+            borrow_key=#borrowKey#
+        </isNotNull>
 		</dynamic>
 			where user_id=#userId# 
 	</update>
