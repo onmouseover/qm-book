@@ -55,11 +55,10 @@
             <label for="bks" class="col-sm-2 control-label">书籍类型：</label>
             <div class="col-sm-4" id="bks">
               <select class="form-control" name="bookType" id="bookType">
-                <option value="0">文学</option>
-                <option value="1">历史</option>
-                <option value="2">java</option>
-                <option value="3">Node</option>
-                <option value="4">C++</option>
+                <option value="1">文学</option>
+                <option value="2">技术</option>
+                <option value="3">历史</option>
+                <option value="4">其他</option>
               </select>
             </div>
           </div>
@@ -72,7 +71,7 @@
           <div class="form-group">
             <label for="introduce" class="col-sm-2 control-label">书籍简介：</label>
             <div class="col-sm-4">
-              <input type="input" maxlength="50"  name="introduce"  class="form-control" id="introduce">
+              <textarea class="form-control"  name="introduce" id="introduce" rows="3"></textarea>
             </div>
           </div>
           <div class="form-group">
@@ -95,8 +94,19 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="borrowCash" class="col-sm-2 control-label">还书到网点：</label>
+            <div class="col-sm-5">
+              <label class="radio-inline">
+                <input type="radio" name="backPoint" checked="checked" value="0"> 支持
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="backPoint" value="1"> 不支持
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">确认发布</button>
+              <button type="submit" class="btn btn-primary">确认发布</button>
             </div>
           </div>
         </form>

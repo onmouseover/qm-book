@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en"><head>
   <script async="" src="//www.google-analytics.com/analytics.js"></script><script src="//cdn.optimizely.com/js/1141215513.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,7 +45,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-md-offset-2">
       <div id="wrapper">
         <div class="alert alert-danger" role="alert">
-          ${msg}&nbsp;&nbsp;<a href="/index">登陆</a><a href="/index">返回首页</a>
+          抱歉，添加失败！<a href="/shareBooks">继续添加</a>&nbsp;&nbsp;<a href="/index">返回首页</a>
         </div>
       </div>
     </div>
