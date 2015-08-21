@@ -12,6 +12,15 @@ public class TbUser {
     private Date regTime;
     private BigDecimal blance;
     private Integer borrowCount;
+    private String borrowKey;
+
+    public String getBorrowKey() {
+        return borrowKey;
+    }
+
+    public void setBorrowKey(String borrowKey) {
+        this.borrowKey = borrowKey;
+    }
 
     public String getUserId() {
         return userId;
