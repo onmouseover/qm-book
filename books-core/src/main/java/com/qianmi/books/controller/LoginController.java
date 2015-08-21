@@ -41,12 +41,15 @@ public class LoginController {
             if(userInfo == null || !tbUser.getPassword().equals(userInfo.getPassword())){
                 model.addAttribute("msg","用户名或密码错误！");
                 model.addAttribute("url","/login");
-                model.addAttribute("actionName","登陆");
+                model.addAttribute("actionName","继续登陆");
                 return "error";
             }
             request.getSession().setAttribute("userInfo",userInfo);
         } catch (Exception e) {
-            return "addError";
+            model.addAttribute("msg","用户名或密码错误！");
+            model.addAttribute("url","/login");
+            model.addAttribute("actionName","继续登陆");
+            return "error";
         }
         return "index";
     }

@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="common/taglibs.jsp"></jsp:include>
-
 <html lang="en">
 <head>
     <title>千米阅E库</title>
@@ -11,30 +10,6 @@
 <body>
  
 <jsp:include page="common/header.jsp"></jsp:include>
-<div class="jumbotron">
-    <div class="container">
-        <div style="text-align: center;" style="padding-top:40px"><h1>QM Hackathon In NanJing</h1></div>
-        <div style="text-align: center;">
-            <a href="javascript:void(0);">
-                <p class="btn btn-primary btn-lg btn-custom-jazz" style="margin: 15px">
-                    时间，时间，还是时间 »
-                </p>
-            </a>
-            <a href="javascript:void(0);">
-                <p class="btn btn-primary btn-lg btn-custom-bm" style="margin: 15px">
-                    任彩虹划破天空 »
-                </p>
-            </a>
-            <a href="javascript:void(0);">
-                <p class="btn btn-primary btn-lg btn-custom-dw" style="margin: 15px;">
-                    遥望昨夜，此生一梦是云间...
-                </p>
-            </a>
-        </div>
-    </div>
-  </div>
-</div>
-
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -60,7 +35,7 @@
                                 </a>
 
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-xs">预约</a>
+                                    <a href="#" class="btn btn-primary btn-xs">借书</a>
                                 </p>
                             </div>
                         </div>

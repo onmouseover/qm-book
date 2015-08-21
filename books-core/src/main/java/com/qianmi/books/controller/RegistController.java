@@ -44,8 +44,11 @@ public class RegistController {
             TbUser userInfo = bookService.register(tbUser);
             request.getSession().setAttribute("userInfo",userInfo);
         } catch (CheckedException e) {
-            return "addError";
+            model.addAttribute("msg","请输入正确的用户名或密码！");
+            model.addAttribute("url","/regist");
+            model.addAttribute("actionName","继续注册！");
+            return "error";
         }
-        return "success";
+        return "userInfo";
     }
 }

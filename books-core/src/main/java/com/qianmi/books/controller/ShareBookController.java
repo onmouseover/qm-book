@@ -39,6 +39,7 @@ public class ShareBookController extends BaseController {
                 return "error";
             }
             TbUser tbUser = (TbUser)obj;
+            form.setSellerId(tbUser.getUserId());
             form.setOwner(tbUser.getUserId());
             bookService.addBook(form);
         } catch (CheckedException e) {
