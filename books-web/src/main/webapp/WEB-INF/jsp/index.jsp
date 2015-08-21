@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="common/taglibs.jsp"></jsp:include>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html lang="en">
 <head>
     <title>千米阅E库</title>
