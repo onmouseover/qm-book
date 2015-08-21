@@ -16,6 +16,7 @@ import com.qianmi.books.util.uud.UUIDGener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -203,6 +204,7 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("已经存在：" + tbUser.getUserName() + " 的用户");
 
         }
+        tbUser.setUserId(UUIDGener.getUUID());
         tbUser.setRegTime(new Date());
         this.tbUserDao.insertTbUser(tbUser);
         return tbUserDao.getTbUser(tbUser.getUserId());
@@ -227,5 +229,50 @@ public class BookServiceImpl implements BookService {
         } else {
             return tbUserList.get(0);
         }
+    }
+
+    @Override
+    public void withdraw(String userId, BigDecimal cash) throws CheckedException {
+        TbUser tbUser = this.tbUserDao.getTbUser(userId);
+        BigDecimal curBlanch = tbUser.getBlance();
+        if (curBlanch.compareTo(cash) < 0) {
+            throw new CheckedException("当前余额:" + curBlanch.toString() + "不足提现");
+        }
+
+        TbUser tbUserUpdate = new TbUser();
+        tbUserUpdate.setUserId(userId);
+        tbUserUpdate.setBlance(curBlanch.subtract(cash));
+        int row = this.tbUserDao.updateTbUser(tbUserUpdate);
+        if (row == 0) {
+            throw new CheckedException("修改资金余额失败");
+        }
+
+        TbCreditRecord tbCreditRecord = new TbCreditRecord();
+        tbCreditRecord.setRecordId(UUIDGener.getUUID());
+        tbCreditRecord.setRecordTime(new Date());
+        tbCreditRecord.setType(Contents.CreditType.WITHDRAW);
+        tbCreditRecord.setUserId(userId);
+        this.tbCreditRecordDao.insertTbCreditRecord(tbCreditRecord);
+    }
+
+    @Override
+    public void deposit(String userId, BigDecimal cash) throws CheckedException {
+        TbUser tbUser = this.tbUserDao.getTbUser(userId);
+        BigDecimal curBlanch = tbUser.getBlance();
+
+        TbUser tbUserUpdate = new TbUser();
+        tbUserUpdate.setUserId(userId);
+        tbUserUpdate.setBlance(curBlanch.add(cash));
+        int row = this.tbUserDao.updateTbUser(tbUserUpdate);
+        if (row == 0) {
+            throw new CheckedException("修改资金余额失败");
+        }
+
+        TbCreditRecord tbCreditRecord = new TbCreditRecord();
+        tbCreditRecord.setRecordId(UUIDGener.getUUID());
+        tbCreditRecord.setRecordTime(new Date());
+        tbCreditRecord.setType(Contents.CreditType.DEPOSIT);
+        tbCreditRecord.setUserId(userId);
+        this.tbCreditRecordDao.insertTbCreditRecord(tbCreditRecord);
     }
 }

@@ -53,4 +53,40 @@ public interface Contents {
          */
         int OTHER = 4;
     }
+
+    public interface CreditType {
+        /**
+         * 押金支出
+         */
+        int YAJIN_OUT = 1;
+        /**
+         * 看书支出
+         */
+        int LOOK_OUT = 2;
+        /**
+         * 过期扣除
+         */
+        int GUOQI_OUT = 3;
+        /**
+         * 提现支出
+         */
+        int WITHDRAW = 4;
+        /**
+         * 押金收入
+         */
+        int YAJIN_IN = 11;
+        /**
+         * 看书收入
+         */
+        int LOOK_IN = 12;
+        /**
+         * 过期收入
+         */
+        int GUOQI_IN = 13;
+        /**
+         * 充值
+         */
+        int DEPOSIT = 14;
+
+    }
 }
