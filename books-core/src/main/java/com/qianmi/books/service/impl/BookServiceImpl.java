@@ -72,16 +72,19 @@ public class BookServiceImpl implements BookService {
         TbBook tbBook = tbBookList.get(0);
 
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
+        TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
 
         TbBook tbBookUpdate = new TbBook();
         tbBookUpdate.setBookId(tbBook.getBookId());
         tbBookUpdate.setState(Contents.BookState.LENDED);
         tbBookUpdate.setApplyUserId("");
         tbBookUpdate.setApplyId("");
+        tbBookUpdate.setBorrowCount(tbBook.getBorrowCount() + 1); // 借出次数加1
         int row = tbBookDao.updateTbBook(tbBookUpdate);
         if (row == 0) {
             throw new CheckedException("更新为已借出失败");
         }
+
 
         TbBookBorrow tbBookBorrow = new TbBookBorrow();
         tbBookBorrow.setBorrowId(UUIDGener.getUUID());
@@ -95,6 +98,48 @@ public class BookServiceImpl implements BookService {
         tbBookBorrow.setStartTime(new Date());
         tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
         this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
+
+        // 扣钱
+        TbUser tbUserUpdate = new TbUser();
+        tbUserUpdate.setUserId(borrowUserId);
+        tbUserUpdate.setBlance(tbUser.getBlance().subtract(tbBook.getBorrowCash()).subtract(tbBook.getBorrowDeposit()));
+        tbUserUpdate.setBorrowCount(tbUser.getBorrowCount() + 1); // 借书次数加1
+        this.tbUserDao.updateTbUser(tbUserUpdate);
+
+        // 加钱
+        TbUser tbSellerUserUpdate = new TbUser();
+        tbSellerUserUpdate.setUserId(sellerUserId);
+        tbSellerUserUpdate.setBlance(sellerUser.getBlance().add(tbBook.getBorrowCash()));
+        this.tbUserDao.updateTbUser(tbSellerUserUpdate);
+
+        // 增加资金记录
+        // 看书费
+        TbCreditRecord borrowRecord = new TbCreditRecord();
+        borrowRecord.setRecordId(UUIDGener.getUUID());
+        borrowRecord.setBorrowId(tbBookBorrow.getBorrowId());
+        borrowRecord.setRecordTime(new Date());
+        borrowRecord.setType(Contents.CreditType.LOOK_OUT);
+        borrowRecord.setUserId(borrowUserId);
+        borrowRecord.setOutCash(tbBook.getBorrowCash());
+        this.tbCreditRecordDao.insertTbCreditRecord(borrowRecord);
+
+        // 押金费
+        borrowRecord.setRecordId(UUIDGener.getUUID());
+        borrowRecord.setType(Contents.CreditType.YAJIN_OUT);
+        borrowRecord.setUserId(borrowUserId);
+        borrowRecord.setOutCash(tbBook.getBorrowDeposit());
+        this.tbCreditRecordDao.insertTbCreditRecord(borrowRecord);
+
+        // 增加资金记录
+        // 看书费
+        TbCreditRecord sellerRecord = new TbCreditRecord();
+        sellerRecord.setRecordId(UUIDGener.getUUID());
+        sellerRecord.setBorrowId(tbBookBorrow.getBorrowId());
+        sellerRecord.setRecordTime(new Date());
+        sellerRecord.setType(Contents.CreditType.LOOK_IN);
+        sellerRecord.setUserId(sellerUserId);
+        sellerRecord.setInCash(tbBook.getBorrowCash());
+        this.tbCreditRecordDao.insertTbCreditRecord(sellerRecord);
 
     }
 
@@ -106,10 +151,12 @@ public class BookServiceImpl implements BookService {
         }
 
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
+        TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
 
         TbBook tbBookUpdate = new TbBook();
         tbBookUpdate.setBookId(tbBook.getBookId());
         tbBookUpdate.setState(Contents.BookState.LENDED);
+        tbBookUpdate.setBorrowCount(tbBook.getBorrowCount() + 1); // 借出次数加1
         int row = tbBookDao.updateTbBook(tbBookUpdate);
         if (row == 0) {
             throw new CheckedException("更新为已借出失败");
@@ -127,6 +174,49 @@ public class BookServiceImpl implements BookService {
         tbBookBorrow.setStartTime(new Date());
         tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
         this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
+
+        // 扣钱
+        TbUser tbUserUpdate = new TbUser();
+        tbUserUpdate.setUserId(borrowUserId);
+        tbUserUpdate.setBlance(tbUser.getBlance().subtract(tbBook.getBorrowCash()).subtract(tbBook.getBorrowDeposit()));
+        tbUserUpdate.setBorrowCount(tbUser.getBorrowCount() + 1); // 借书次数加1
+        this.tbUserDao.updateTbUser(tbUserUpdate);
+
+        // 加钱
+        TbUser tbSellerUserUpdate = new TbUser();
+        tbSellerUserUpdate.setUserId(sellerUserId);
+        tbSellerUserUpdate.setBlance(sellerUser.getBlance().add(tbBook.getBorrowCash()));
+        this.tbUserDao.updateTbUser(tbSellerUserUpdate);
+
+        // 增加资金记录
+        // 看书费
+        TbCreditRecord borrowRecord = new TbCreditRecord();
+        borrowRecord.setRecordId(UUIDGener.getUUID());
+        borrowRecord.setBorrowId(tbBookBorrow.getBorrowId());
+        borrowRecord.setRecordTime(new Date());
+        borrowRecord.setType(Contents.CreditType.LOOK_OUT);
+        borrowRecord.setUserId(borrowUserId);
+        borrowRecord.setOutCash(tbBook.getBorrowCash());
+        this.tbCreditRecordDao.insertTbCreditRecord(borrowRecord);
+
+        // 押金费
+        borrowRecord.setRecordId(UUIDGener.getUUID());
+        borrowRecord.setType(Contents.CreditType.YAJIN_OUT);
+        borrowRecord.setUserId(borrowUserId);
+        borrowRecord.setOutCash(tbBook.getBorrowDeposit());
+        this.tbCreditRecordDao.insertTbCreditRecord(borrowRecord);
+
+        // 增加资金记录
+        // 看书费
+        TbCreditRecord sellerRecord = new TbCreditRecord();
+        sellerRecord.setRecordId(UUIDGener.getUUID());
+        sellerRecord.setBorrowId(tbBookBorrow.getBorrowId());
+        sellerRecord.setRecordTime(new Date());
+        sellerRecord.setType(Contents.CreditType.LOOK_IN);
+        sellerRecord.setUserId(sellerUserId);
+        sellerRecord.setInCash(tbBook.getBorrowCash());
+        this.tbCreditRecordDao.insertTbCreditRecord(sellerRecord);
+
     }
 
     @Override
@@ -183,6 +273,8 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("当前书不是为归还状态");
         }
 
+        TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
+
         TbBookBorrow tbBookBorrowUpdate = new TbBookBorrow();
         tbBookBorrowUpdate.setBorrowId(borrowId);
         tbBookBorrowUpdate.setState(Contents.BookBorrowState.BACK);
@@ -195,6 +287,23 @@ public class BookServiceImpl implements BookService {
         tbBookUpdate.setBookId(tbBookBorrow.getBookId());
         tbBookUpdate.setState(Contents.BookState.CAN_BORROW);
         this.tbBookDao.updateTbBook(tbBookUpdate);
+
+        // 加钱
+        TbUser tbSellerUserUpdate = new TbUser();
+        tbSellerUserUpdate.setUserId(sellerUserId);
+        tbSellerUserUpdate.setBlance(sellerUser.getBlance().add(tbBookBorrow.getBorrowCash()));
+        this.tbUserDao.updateTbUser(tbSellerUserUpdate);
+
+        // 增加资金记录
+        // 看书费
+        TbCreditRecord sellerRecord = new TbCreditRecord();
+        sellerRecord.setRecordId(UUIDGener.getUUID());
+        sellerRecord.setBorrowId(tbBookBorrow.getBorrowId());
+        sellerRecord.setRecordTime(new Date());
+        sellerRecord.setType(Contents.CreditType.YAJIN_IN);
+        sellerRecord.setUserId(sellerUserId);
+        sellerRecord.setInCash(tbBookBorrow.getBorrowDeposit());
+        this.tbCreditRecordDao.insertTbCreditRecord(sellerRecord);
     }
 
     @Override

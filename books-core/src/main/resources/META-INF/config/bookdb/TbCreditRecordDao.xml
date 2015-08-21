@@ -10,7 +10,10 @@
 		,t.record_time as "recordTime"
 		,t.type as "type"
 		,t.borrow_id as "borrowId"
-		from TB_CREDIT_RECORD t 
+        ,t.in_cash as "inCash"
+        ,t.out_cash as "outCash"
+
+        from TB_CREDIT_RECORD t
 		where 1=1
 		<isNotEmpty prepend="and" property="recordId">
 		    t.record_id=#recordId#
@@ -48,6 +51,12 @@
 		<isNotEmpty prepend="," property="borrowId">
 			borrow_id
 		</isNotEmpty>
+        <isNotEmpty prepend="," property="inCash">
+            in_cash
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="outCash">
+            out_cash
+        </isNotEmpty>
 		</dynamic>
 		)
 		values(
@@ -67,6 +76,12 @@
 		<isNotEmpty prepend="," property="borrowId">
 			#borrowId# 
 		</isNotEmpty>
+        <isNotEmpty prepend="," property="inCash">
+            #inCash#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="outCash">
+            #outCash#
+        </isNotEmpty>
 		</dynamic>
 		)
 	</insert>
@@ -86,6 +101,12 @@
 		<isNotNull prepend="," property="borrowId">
 			borrow_id=#borrowId# 
 		</isNotNull>
+        <isNotNull prepend="," property="inCash">
+            in_cash=#inCash#
+        </isNotNull>
+        <isNotNull prepend="," property="outCash">
+            out_cash=#outCash#
+        </isNotNull>
 		</dynamic>
 			where record_id=#recordId# 
 	</update>
