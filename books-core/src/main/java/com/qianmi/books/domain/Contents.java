@@ -4,6 +4,17 @@ package com.qianmi.books.domain;
  * Created by caowei on 15-8-21.
  */
 public interface Contents {
+    /**
+     * 借书期限为30天
+     */
+    public static final int LOOK_DAYS = 30;
+
+    /**
+     * 超期的每天费用
+     */
+    public static final double EXPIRES_FEE = 1;
+
+
     public interface BookState {
         /**
          * 停止出借
@@ -89,4 +100,6 @@ public interface Contents {
         int DEPOSIT = 14;
 
     }
+
+
 }
