@@ -33,7 +33,7 @@
 
     <bean id="booksdbMapClient" class="com.qianmi.books.dao.base.MySqlMapClientFactoryBean">
         <property name="configLocation" value="classpath:/META-INF/config/sqlmap-config.xml" />
-        <property name="mappingLocations" value="classpath*:/META-INF/config/bookdb/sql_label_*.xml"></property>
+        <property name="mappingLocations" value="classpath*:/META-INF/config/bookdb/*.xml"></property>
         <property name="dataSource" ref="booksdbDataSource" />
         <property name="pageQuery" ref="MysqlDefaultPageQuery"></property>
     </bean>

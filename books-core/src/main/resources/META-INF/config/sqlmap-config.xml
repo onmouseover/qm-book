@@ -5,10 +5,4 @@
 
     <settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="true"
         errorTracingEnabled="true" useStatementNamespaces="true" />
-    <sqlMap resource="META-INF/config/bookdb/TbBookBorrow.xml" />
-    <sqlMap resource="META-INF/config/bookdb/TbBookDao.xml" />
-    <sqlMap resource="META-INF/config/bookdb/TbCreditRecordDao.xml" />
-    <sqlMap resource="META-INF/config/bookdb/TbUserDao.xml" />
-
-
 </sqlMapConfig>
