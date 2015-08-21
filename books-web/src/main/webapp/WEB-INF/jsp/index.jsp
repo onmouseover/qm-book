@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="common/taglibs.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html lang="en">
 <head>
@@ -45,6 +46,7 @@
                     <span class="title">所有图书</span>
 
                     <c:forEach items="${bookList}" var="item" varStatus="stat">
+
                         <c:if test="${stat.index % 5 == 0}">
                             <div class="columns section in" style="height: 0px;text-align: center;" >
                         </c:if>
@@ -56,7 +58,7 @@
                                         <img src="/images/1.jpg" alt="java" class="img-rounded"
                                              style="width: 120px; height: 160px; margin: auto">
                                     </h4>
-                                    <h5>java程序与设计</h5>
+                                    <h5>${item.bookName}</h5>
                                 </a>
 
                                 <p>
