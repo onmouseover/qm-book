@@ -3,7 +3,7 @@ package com.qianmi.books.dao.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public abstract class TbUser {
+public class TbUser {
     private String userId;
     private String userName;
     private String password;

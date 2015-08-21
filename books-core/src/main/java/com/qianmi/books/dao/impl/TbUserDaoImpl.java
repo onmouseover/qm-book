@@ -32,4 +32,11 @@ public class TbUserDaoImpl extends BaseDao implements TbUserDao {
         parameterMap.put("userId", userId);
         return (Integer) getSqlMapClientTemplate().delete("TB_USER.deleteTbUser", parameterMap);
     }
+
+    @Override
+    public TbUser getTbUser(String userId) {
+        TbUser tbUser = new TbUser();
+        tbUser.setUserId(userId);
+        return (TbUser)getSqlMapClientTemplate().queryForObject("TB_USER.getTbUserList", tbUser);
+    }
 }

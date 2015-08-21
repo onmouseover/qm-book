@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,6 +67,8 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("此预约码已过期或不存在");
         }
 
+        TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
+
         TbBook tbBook = tbBookList.get(0);
         TbBookBorrow tbBookBorrow = new TbBookBorrow();
         tbBookBorrow.setBookId(tbBook.getBookId());
@@ -74,6 +77,9 @@ public class BookServiceImpl implements BookService {
         tbBookBorrow.setBorrowCash(tbBook.getBorrowCash());
         tbBookBorrow.setBorrowDeposit(tbBook.getBorrowDeposit());
         tbBookBorrow.setBorrowUserId(borrowUserId);
+        tbBookBorrow.setPointUserId(tbUser.getPointUserId());
+        tbBookBorrow.setStartTime(new Date());
+        tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
         this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
     }
 

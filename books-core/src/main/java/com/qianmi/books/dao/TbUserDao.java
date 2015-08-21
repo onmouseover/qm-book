@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TbUserDao {
     public List<TbUser> getTbUserList(TbUser tbUser);
+    public TbUser getTbUser(String userId);
 
     public Integer insertTbUser(TbUser tbUser);
 
