@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="common/taglibs.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <title>千米阅E库</title>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
- 
+
 <jsp:include page="common/header.jsp"></jsp:include>
 <div class="jumbotron">
     <div class="container">
@@ -31,7 +32,7 @@
             </a>
         </div>
     </div>
-  </div>
+</div>
 </div>
 
 <div class="container">
@@ -60,7 +61,8 @@
                                 </a>
 
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-xs">预约</a>
+                                    <a href="#" class="btn btn-primary btn-xs"
+                                       onClick='preserve("${item.sellerId}","${item.bookId}")'>预约</a>
                                 </p>
                             </div>
                         </div>
@@ -92,8 +94,34 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/immutable.min.js"></script>
 <script type="text/javascript">
-    var searchBooks = function (condition) {
-        location.href = '/index?condition=' + condition;
+    $(document).ready(function () {
+        $('#bookSearchBtn').bind('click', function () {
+            var condition = $('#bookSearchInput').val();
+            if (condition) {
+                window.location.href = '/index?condition=' + condition;
+            } else {
+                alert('请先填写搜索信息！');
+            }
+        })
+    });
+
+
+    var preserve = function (saleUserId, bookId) {
+        $.ajax({
+            url: '/index/borrowBook',
+            type: 'post',
+            data: {
+                saleUserId: saleUserId,
+                bookId: bookId
+            },
+            success: function (resp) {
+                if (resp.result == 'ok') {
+                    alert(resp.data);
+                } else {
+                    alert(resp.msg);
+                }
+            }
+        })
     };
 </script>
 </body>
