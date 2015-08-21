@@ -276,6 +276,10 @@ public class BookServiceImpl implements BookService {
             throw new CheckedException("当前书不是为归还状态");
         }
 
+        if (!tbBookBorrow.getSellerUserId().equals(sellerUserId)) {
+            throw new CheckedException("当前书籍不是此所有者");
+        }
+
         TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
 
         TbBookBorrow tbBookBorrowUpdate = new TbBookBorrow();
