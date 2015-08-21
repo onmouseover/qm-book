@@ -1,6 +1,7 @@
 package com.qianmi.books.service;
 
 import com.qianmi.books.dao.domain.TbBook;
+import com.qianmi.books.dao.domain.TbCreditRecord;
 import com.qianmi.books.dao.domain.TbUser;
 import com.qianmi.books.exception.CheckedException;
 
@@ -85,7 +86,7 @@ public interface BookService {
      * @return
      * @throws CheckedException
      */
-    List<TbBook> queryBookList(TbBook tbBook) throws CheckedException;
+    List<TbBook> queryBookList(TbBook tbBook);
 
     /**
      * 查询图书详情
@@ -94,7 +95,7 @@ public interface BookService {
      * @return
      * @throws CheckedException
      */
-    TbBook queryBookDetail(String bookId) throws CheckedException;
+    TbBook queryBookDetail(String bookId);
 
     /**
      * 确定图书已经归还
@@ -122,7 +123,7 @@ public interface BookService {
      * @return
      * @throws CheckedException
      */
-    TbUser getUser(String userId) throws CheckedException;
+    TbUser getUser(String userId);
 
 
 
@@ -133,7 +134,7 @@ public interface BookService {
      * @return
      * @throws CheckedException
      */
-    TbUser getUserByName(String userName) throws CheckedException;
+    TbUser getUserByName(String userName);
 
     /**
      * 提现
@@ -152,4 +153,21 @@ public interface BookService {
      * @throws CheckedException
      */
     void deposit(String userId, BigDecimal cash) throws CheckedException;
+
+    /**
+     * 获取资金记录
+     *
+     * @param recordId
+     * @return
+     * @throws CheckedException
+     */
+    TbCreditRecord getTbCreditRecord(String recordId);
+
+    /**
+     * 获取资金记录列表
+     *
+     * @return
+     * @throws CheckedException
+     */
+    List<TbCreditRecord> getTbCreditRecordList(TbCreditRecord tbCreditRecord);
 }

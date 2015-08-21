@@ -32,4 +32,11 @@ public class TbCreditRecordDaoImpl extends BaseDao implements TbCreditRecordDao 
         parameterMap.put("recordId", recordId);
         return getSqlMapClientTemplate().delete("TB_CREDIT_RECORD.deleteTbCreditRecord", parameterMap);
     }
+
+    @Override
+    public TbCreditRecord getTbCreditRecord(String recordId) {
+        TbCreditRecord tbCreditRecord = new TbCreditRecord();
+        tbCreditRecord.setRecordId(recordId);
+        return (TbCreditRecord)getSqlMapClientTemplate().queryForObject("TB_CREDIT_RECORD.getTbCreditRecordList", tbCreditRecord);
+    }
 }
