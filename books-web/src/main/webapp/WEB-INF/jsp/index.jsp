@@ -68,18 +68,18 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div id="wrapper">
-                <div id="repos" class="columns collapse-group">
-                </div>
-                <div class="separator"></div>
+                <div id="repos" class="columns collapse-group"></div>
                 <div class="section-title">
+                    <div class="separator"></div>
+                    <div class="separator"></div>
                     <span class="title">热门图书</span>
 
                     <c:forEach items="${bookList}" var="item" varStatus="stat">
                         <c:if test="${stat.index % 5 == 0}">
-                            <div class="columns section in" style="height: auto;text-align: center;" >
+                            <div class="columns section in" style="height: 0px;text-align: center;" >
                         </c:if>
                         <div class="updated-card col-sm-5 col-md-4 col-lg-3"
-                             style="height:auto;width:175px;text-align:center;">
+                             style="height:auto;width:175px;text-align:center;margin-left: 42px">
                             <div class="card pin css developer.bigfix.com">
                                 <a href="#">
                                     <h4>
@@ -91,8 +91,6 @@
 
                                 <p>
                                     <a href="#" class="btn btn-primary btn-xs">预约</a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="#" class="btn btn-primary btn-xs">借书</a>
                                 </p>
                             </div>
                         </div>
@@ -108,12 +106,13 @@
             </div>
         </div>
     </div>
+    <p align="center"><h5 align="center">More...</h5></p>
     <hr>
 </div>
 
 
 <footer>
-    <div class="container" align="center">
+    <div class="container">
         <p>© 千米 2015-2016</p>
     </div>
 </footer>
