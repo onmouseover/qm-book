@@ -52,8 +52,15 @@
                             <div class="card pin css developer.bigfix.com">
                                 <a href="#">
                                     <h4>
-                                        <img src="/images/1.jpg" alt="java" class="img-rounded"
-                                             style="width: 120px; height: 160px; margin: auto">
+                                        <c:if test="${not empty item.pictureUrl}">
+                                            <img src="${item.pictureUrl}" alt="java" class="img-rounded"
+                                                 style="width: 120px; height: 160px; margin: auto">
+                                        </c:if>
+                                        <c:if test="${empty item.pictureUrl}">
+                                            <img src="/images/default.jpg" alt="java" class="img-rounded"
+                                                 style="width: 120px; height: 160px; margin: auto">
+                                        </c:if>
+
                                     </h4>
                                     <h5>${item.bookName}</h5>
                                 </a>
