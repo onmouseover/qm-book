@@ -20,8 +20,8 @@
         <div class="col-sm-12 pad-xs">
           <div class="row-content">
             <div class="col-sm-8 col-sm-offset-2">
-              <h1 id="home-header" class="text-center">期待你，加入我们！ <span id="cloud-hosting-for" class="animated fadeInLeft">You.</span></h1>
-              <p id="high-performance" class="lead text-center">High performance SSD Linux servers for all of your infrastructure needs.</p>
+              <h1 id="home-header" class="text-center">期待你，加入我们！ <span id="cloud-hosting-for" class="animated fadeInLeft">Join us.</span></h1>
+              <p id="high-performance" class="lead text-center">High performance QianMi clouds for all of your infrastructure needs.</p>
             </div>
           </div>
 
