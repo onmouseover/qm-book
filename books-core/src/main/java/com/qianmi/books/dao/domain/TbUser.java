@@ -13,6 +13,15 @@ public class TbUser {
     private BigDecimal blance;
     private Integer borrowCount;
     private String borrowKey;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getBorrowKey() {
         return borrowKey;
