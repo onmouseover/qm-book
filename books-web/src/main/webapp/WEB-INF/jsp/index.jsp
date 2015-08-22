@@ -73,7 +73,7 @@
 
                                     <c:if test="${item.state ne 1}">
                                         <a href="javascript:void(0);return false;"
-                                           class="btn btn-warning btn-xs">不可预约</a>
+                                           class="btn btn-warning btn-xs">已借出</a>
                                     </c:if>
                                 </p>
                             </div>
