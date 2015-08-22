@@ -99,6 +99,7 @@ public class BookServiceImpl implements BookService {
         tbBookBorrow.setBorrowUserId(borrowUserId);
         tbBookBorrow.setPointUserId(tbUser.getPointUserId());
         tbBookBorrow.setStartTime(new Date());
+        tbBookBorrow.setSellerUserId(sellerUserId);
         tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
         this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
 
@@ -179,6 +180,7 @@ public class BookServiceImpl implements BookService {
         tbBookBorrow.setBorrowUserId(borrowUserId);
         tbBookBorrow.setPointUserId(tbUser.getPointUserId());
         tbBookBorrow.setStartTime(new Date());
+        tbBookBorrow.setSellerUserId(sellerUserId);
         tbBookBorrow.setState(Contents.BookBorrowState.UNBACK);
         this.tbBookBorrowDao.insertTbBookBorrow(tbBookBorrow);
 
