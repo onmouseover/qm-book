@@ -45,6 +45,6 @@ public class ShareBookController extends BaseController {
         } catch (CheckedException e) {
             return "addError";
         }
-        return "registSuccess";
+        return "success";
     }
 }
