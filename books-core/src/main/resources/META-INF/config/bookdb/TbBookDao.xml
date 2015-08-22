@@ -21,6 +21,8 @@
 		,t.borrow_deposit as "borrowDeposit"
         ,t.apply_id as "applyId"
         ,t.book_type as "bookType"
+        ,t.apply_user_id as "applyUserId"
+
         from TB_BOOK t
 		where 1=1
 		<isNotEmpty prepend="and" property="bookId">

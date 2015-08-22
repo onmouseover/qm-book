@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -62,5 +63,20 @@ public class LoginController {
             return "error";
         }
         return "index";
+    }
+
+
+    @RequestMapping(value = "loginout", method = RequestMethod.GET)
+    public String loginout(HttpSession session, HttpServletResponse response,Model model) {
+        session.removeAttribute("userInfo");
+        try {
+            response.sendRedirect("/index");
+        } catch (IOException e) {
+            model.addAttribute("msg", "抱歉，系统跳转有误，请刷新页面后重试。");
+            model.addAttribute("url", "/login");
+            model.addAttribute("actionName", "继续登陆");
+            return "error";
+        }
+        return "error";
     }
 }

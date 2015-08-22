@@ -29,6 +29,7 @@
           </c:if>
           <c:if test="${userInfo ne null}">
             <li><a href="/userInfo">我的信息</a></li>
+            <li><a href="/loginout">退出登录</a></li>
           </c:if>
         </ul>
 
