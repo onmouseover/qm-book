@@ -274,11 +274,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void confirmBookBack(String sellerUserId, String borrowId) throws CheckedException {
-        TbBookBorrow tbBookBorrow = this.tbBookBorrowDao.getTbBookBorrow(borrowId);
-        if (Contents.BookBorrowState.UNBACK != tbBookBorrow.getState()) {
-            throw new CheckedException("当前书不是为归还状态");
+    public void confirmBookBack(String sellerUserId, String bookId) throws CheckedException {
+        TbBookBorrow tbBookBorrowQuery = new TbBookBorrow();
+        tbBookBorrowQuery.setBookId(bookId);
+        tbBookBorrowQuery.setSellerUserId(sellerUserId);
+        tbBookBorrowQuery.setState(Contents.BookBorrowState.UNBACK);
+        List<TbBookBorrow> tbBookBorrows = this.tbBookBorrowDao.getTbBookBorrowList(tbBookBorrowQuery);
+        if (tbBookBorrows.size() == 0) {
+            throw new CheckedException("当前书未找到借出记录");
         }
+        TbBookBorrow tbBookBorrow = tbBookBorrows.get(0);
 
         TbUser borrowUser = this.tbUserDao.getTbUser(tbBookBorrow.getBorrowUserId());
         TbBook tbBookUpdate = new TbBook();
@@ -298,7 +303,7 @@ public class BookServiceImpl implements BookService {
         TbUser sellerUser = this.tbUserDao.getTbUser(tbBookBorrow.getSellerUserId());
 
         TbBookBorrow tbBookBorrowUpdate = new TbBookBorrow();
-        tbBookBorrowUpdate.setBorrowId(borrowId);
+        tbBookBorrowUpdate.setBorrowId(tbBookBorrow.getBorrowId());
         tbBookBorrowUpdate.setState(Contents.BookBorrowState.BACK);
         tbBookBorrowUpdate.setEndTime(new Date());
         int row = this.tbBookBorrowDao.updateTbBookBorrow(tbBookBorrowUpdate);
