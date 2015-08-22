@@ -35,16 +35,16 @@
                                 </a>
                                 <p>
                                     <c:if test="${item.state eq '1' || item.state eq '2'}">
-                                        <a href="#" class="btn btn-success btn-xs" id="lend_${item.bookId}" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
+                                        <a href="#" class="btn btn-success btn-xs" id="lend_${item.bookId}" data-toggle="modal" data-target="#exampleModal" data-type="1" data-whatever="${item.bookId}" data-state="${item.state}">借出</a>
                                     </c:if>
                                     <c:if test="${item.state eq '3'}">
                                         <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" id="lend_${item.bookId}" data-target="#exampleModal" data-type="2" data-whatever="${item.bookId}" data-state="${item.state}">还书</a>
                                     </c:if>
                                     <c:if test="${item.state ne '0'}">
-                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">下架</a>
+                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" id="borrow_${item.bookId}" data-target="#exampleModal" data-whatever="${item.bookId}" data-type="3" data-state="${item.state}">下架</a>
                                     </c:if>
                                     <c:if test="${item.state eq '0'}">
-                                        <a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">上架</a>
+                                        <a href="#" class="btn btn-info btn-xs" data-toggle="modal" id="borrow_${item.bookId}" data-target="#exampleModal" data-whatever="${item.bookId}" data-type="4" data-state="${item.state}">上架</a>
                                     </c:if>
                                 </p>
                             </div>
@@ -77,7 +77,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">借书</h4>
+                <h4 class="modal-title" id="exampleModalLabel">借出</h4>
             </div>
             <div class="modal-body">
                 <form>
@@ -89,7 +89,7 @@
                         <input type="text" class="form-control" id="userName">
                     </div>
                     <div class="form-group">
-                        <label for="borrowCode" class="control-label">借书码:</label>
+                        <label for="borrowCode" class="control-label">借出码:</label>
                         <input type="password" class="form-control" id="borrowCode">
                     </div>
                 </form>
@@ -111,14 +111,22 @@
         var bookState = button.data('state');
         var type = button.data('type');
         if(type == '2'){
-            modal.find('#type').val('2');
+            $('#type').val('2');
             $('#toUserName').hide();
             $('#exampleModalLabel').html('还书');
-        }else{
-            modal.find('#type').val('1');
-            $('#exampleModalLabel').html('借书');
+        }else if(type == '1'){
+            $('#type').val('1');
+            $('#exampleModalLabel').html('借出');
+        }else if(type == '3'){
+            $('#type').val('3');
+            $('#toUserName').hide();
+            $('#exampleModalLabel').html('上架');
+        }else if(type == '4'){
+            $('#type').val('4');
+            $('#toUserName').hide();
+            $('#exampleModalLabel').html('下架');
         }
-        if(bookState == '2' || type == '2'){
+        if(bookState != '1' || type != '1'){
             $('#toUserName').hide();
         }else{
             $('#toUserName').show();
@@ -139,12 +147,12 @@
             data:{userName:userName,type:type,borrowCode:borrowCode,bookId:bookId,bookState:bookState},
             success:function(data){
                 if(data.result == 'ok'){
-                    if(type == '2'){
+                    if(type == '1'){
                         $('#lend_'+bookId).attr('data-state','1');
                         $('#lend_'+bookId).text("还书");
                     }else{
                         $('#lend_'+bookId).attr('data-state','3');
-                        $('#lend_'+bookId).text("借书");
+                        $('#lend_'+bookId).text("借出");
                     }
                     $('#exampleModal').modal('hide')
                     alert('操作成功');
