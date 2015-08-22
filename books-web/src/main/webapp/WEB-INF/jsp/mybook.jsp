@@ -35,9 +35,17 @@
                                 </a>
                                 <p>
                                     <c:if test="${item.state eq '1' || item.state eq '2'}">
-                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
+                                        <a href="#" class="btn btn-success btn-xs" id="lend_${item.bookId}" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
                                     </c:if>
-
+                                    <c:if test="${item.state eq '3'}">
+                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" id="lend_${item.bookId}" data-target="#exampleModal" data-type="2" data-whatever="${item.bookId}" data-state="${item.state}">还书</a>
+                                    </c:if>
+                                    <c:if test="${item.state ne '0'}">
+                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">下架</a>
+                                    </c:if>
+                                    <c:if test="${item.state eq '0'}">
+                                        <a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">上架</a>
+                                    </c:if>
                                 </p>
                             </div>
                         </div>
@@ -74,6 +82,7 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" value="" name="bookId" id="bookId" />
+                    <input type="hidden" value="" name="type" id="type" />
                     <input type="hidden" value="" name="bookState" id="bookState" />
                     <div class="form-group" id="toUserName">
                         <label for="userName" class="control-label">用户名:</label>
@@ -87,7 +96,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="btn_borrow">确定借书</button>
+                <button type="button" class="btn btn-primary" id="btn_borrow">确定</button>
             </div>
         </div>
     </div>
@@ -100,7 +109,16 @@
         var button = $(event.relatedTarget) // Button that triggered the modal
         var recipient = button.data('whatever') // Extract info from data-* attributes
         var bookState = button.data('state');
-        if(bookState == '2'){
+        var type = button.data('type');
+        if(type == '2'){
+            modal.find('#type').val('2');
+            $('#toUserName').hide();
+            $('#exampleModalLabel').html('还书');
+        }else{
+            modal.find('#type').val('1');
+            $('#exampleModalLabel').html('借书');
+        }
+        if(bookState == '2' || type == '2'){
             $('#toUserName').hide();
         }else{
             $('#toUserName').show();
@@ -114,13 +132,20 @@
         var borrowCode = $('#borrowCode').val();
         var bookId = $('#bookId').val();
         var bookState =  $('#bookState').val();
+        var type = $('#type').val();
         $.ajax({
             type:"post",
             url:"/borrowBook",
-            data:{userName:userName,borrowCode:borrowCode,bookId:bookId,bookState:bookState},
+            data:{userName:userName,type:type,borrowCode:borrowCode,bookId:bookId,bookState:bookState},
             success:function(data){
                 if(data.result == 'ok'){
-                    $('#book_'+bookId).hide();
+                    if(type == '2'){
+                        $('#lend_'+bookId).attr('data-state','1');
+                        $('#lend_'+bookId).text("还书");
+                    }else{
+                        $('#lend_'+bookId).attr('data-state','3');
+                        $('#lend_'+bookId).text("借书");
+                    }
                     $('#exampleModal').modal('hide')
                     alert('操作成功');
                 }else{

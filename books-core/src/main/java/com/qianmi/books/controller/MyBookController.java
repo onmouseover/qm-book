@@ -46,7 +46,7 @@ public class MyBookController extends BaseController {
     @RequestMapping(value = "/borrowBook", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> borrowBook(String userName, String bookId,String borrowCode,String bookState
-    ,HttpSession session){
+    ,String type,HttpSession session){
         if( StringUtils.isBlank(bookId)
                 || StringUtils.isBlank(borrowCode)){
             return ajaxFail("请输入正确的数据!");
@@ -61,15 +61,20 @@ public class MyBookController extends BaseController {
             return ajaxFail("请登录后再做操作!");
         }
         try{
-            if("2".equals(bookState)){
-                bookService.lend(tbUser.getUserId(),borrowCode);
+            if("2".equals(type)){//还书
+                bookService.confirmBookBack(tbUser.getUserId(),bookId);
             }else{
-                TbUser toUserInfo = bookService.getUserByName(userName);
-                if(toUserInfo == null){
-                    return ajaxFail("请输入正确的用户信息！");
+                if("2".equals(bookState)){
+                    bookService.lend(tbUser.getUserId(),borrowCode);
+                }else{
+                    TbUser toUserInfo = bookService.getUserByName(userName);
+                    if(toUserInfo == null){
+                        return ajaxFail("请输入正确的用户信息！");
+                    }
+                    bookService.lend(toUserInfo.getUserId(),tbUser.getUserId(),bookId,borrowCode);
                 }
-                bookService.lend(toUserInfo.getUserId(),tbUser.getUserId(),bookId,borrowCode);
             }
+
         } catch (CheckedException e) {
             return ajaxFail(e.getMessage());
         } catch (Exception e){
