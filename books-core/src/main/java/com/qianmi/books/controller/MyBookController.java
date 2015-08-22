@@ -2,6 +2,7 @@ package com.qianmi.books.controller;
 
 import com.qianmi.books.dao.domain.TbBook;
 import com.qianmi.books.dao.domain.TbUser;
+import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.service.BookService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,9 @@ public class MyBookController extends BaseController {
                 }
                 bookService.lend(toUserInfo.getUserId(),tbUser.getUserId(),bookId,borrowCode);
             }
-        } catch (Exception e) {
+        } catch (CheckedException e) {
+            return ajaxFail(e.getMessage());
+        } catch (Exception e){
             return ajaxFail("出问题啦~~！");
         }
         return ajaxSuccess("操作成功！");

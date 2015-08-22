@@ -66,6 +66,7 @@
               <input type="input" maxlength="50" name="borrowCash" class="form-control" id="borrowCash">
             </div>
           </div>
+          <c:if test="${userInfo.type eq 1}">
           <div class="form-group">
             <label for="borrowCash" class="col-sm-2 control-label">还书到网点：</label>
             <div class="col-sm-5">
@@ -77,6 +78,7 @@
               </label>
             </div>
           </div>
+          </c:if>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary">确认发布</button>
