@@ -2,6 +2,7 @@ package com.qianmi.books.controller;
 
 import com.qianmi.books.dao.domain.TbBook;
 import com.qianmi.books.dao.domain.TbUser;
+import com.qianmi.books.domain.Contents;
 import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.service.BookService;
 import org.apache.commons.lang.StringUtils;
@@ -38,8 +39,31 @@ public class MyBookController extends BaseController {
 
         TbBook tbBook = new TbBook();
         tbBook.setBookName(condition);
-        tbBook.setOwner(userInfo.getUserId());
-        model.addAttribute("bookList", bookService.queryBookList(tbBook));
+        tbBook.setSellerId(userInfo.getUserId());
+        List<TbBook> resultList = new ArrayList<TbBook>();
+        List<TbBook> tbBooks = bookService.queryBookList(tbBook);
+        if (userInfo.getType() == 2) {
+            tbBook = new TbBook();
+            tbBook.setBookName(condition);
+            tbBook.setState(Contents.BookState.LENDED);
+            tbBook.setBackPoint(0);
+            List<TbBook> tbBookList = bookService.queryBookList(tbBook);
+            for (TbBook tbBook1 : tbBookList) {
+                boolean exists = false;
+                for (TbBook tbBook2 : tbBooks) {
+                    if (tbBook2.getBookId().equals(tbBook1.getBookId())) {
+                        exists = true;
+                    }
+                }
+                if (!exists) {
+                    resultList.add(tbBook1);
+                }
+            }
+        }
+
+        resultList.addAll(tbBooks);
+
+        model.addAttribute("bookList", resultList);
         return "mybook";
     }
 
