@@ -279,7 +279,7 @@ public class BookServiceImpl implements BookService {
     public void confirmBookBack(String sellerUserId, String bookId) throws CheckedException {
         TbBookBorrow tbBookBorrowQuery = new TbBookBorrow();
         tbBookBorrowQuery.setBookId(bookId);
-        tbBookBorrowQuery.setSellerUserId(sellerUserId);
+        //tbBookBorrowQuery.setSellerUserId(sellerUserId);
         tbBookBorrowQuery.setState(Contents.BookBorrowState.UNBACK);
         List<TbBookBorrow> tbBookBorrows = this.tbBookBorrowDao.getTbBookBorrowList(tbBookBorrowQuery);
         if (tbBookBorrows.size() == 0) {
