@@ -15,24 +15,22 @@
         </li>
         </c:if>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <ul class="nav navbar-nav navbar-right">
+        <c:if test="${userInfo eq null}">
+          <li><a href="/regist">加入我们</a></li>
+          <li><a href="/login">登陆</a></li>
+        </c:if>
+        <c:if test="${userInfo ne null}">
+          <li><a href="/userInfo">我的信息</a></li>
+          <li><a href="/loginout">退出登录</a></li>
+        </c:if>
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" id="bookSearchInput">
         </div>
         <button type="button" class="btn btn-warning" id="bookSearchBtn">Search</button>
       </form>
-
-        <ul class="nav navbar-nav navbar-right">
-          <c:if test="${userInfo eq null}">
-          <li><a href="/regist">加入我们</a></li>
-          <li><a href="/login">登陆</a></li>
-          </c:if>
-          <c:if test="${userInfo ne null}">
-            <li><a href="/userInfo">我的信息</a></li>
-            <li><a href="/loginout">退出登录</a></li>
-          </c:if>
-        </ul>
-
 
     </div>
   </div>
