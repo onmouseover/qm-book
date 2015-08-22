@@ -33,9 +33,11 @@
                                     </h4>
                                     <h5>${item.bookName}</h5>
                                 </a>
-
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
+                                    <c:if test="${item.state eq '1' || item.state eq '2'}">
+                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
+                                    </c:if>
+
                                 </p>
                             </div>
                         </div>
@@ -119,6 +121,7 @@
             success:function(data){
                 if(data.result == 'ok'){
                     $('#book_'+bookId).hide();
+                    $('#exampleModal').modal('hide')
                     alert('操作成功');
                 }else{
                     alert(data.msg);
