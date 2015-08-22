@@ -100,10 +100,10 @@ public interface BookService {
      * 确定图书已经归还
      *
      * @param sellerUserId
-     * @param borrowId
+     * @param bookId
      * @throws CheckedException
      */
-    void confirmBookBack(String sellerUserId, String borrowId) throws CheckedException;
+    void confirmBookBack(String sellerUserId, String bookId) throws CheckedException;
 
     /**
      * 用户注册

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="common/taglibs.jsp"%>
+<%@include file="common/taglibs.jsp" %>
 <html lang="en">
 <head>
     <title>千米阅E库</title>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
- 
+
 <jsp:include page="common/header.jsp"></jsp:include>
 <div class="jumbotron">
     <div class="container">
@@ -31,7 +31,6 @@
             </a>
         </div>
     </div>
-  </div>
 </div>
 
 <div class="container">
@@ -53,15 +52,29 @@
                             <div class="card pin css developer.bigfix.com">
                                 <a href="#">
                                     <h4>
-                                        <img src="/images/1.jpg" alt="java" class="img-rounded"
-                                             style="width: 120px; height: 160px; margin: auto">
+                                        <c:if test="${not empty item.pictureUrl}">
+                                            <img src="${item.pictureUrl}" alt="java" class="img-rounded"
+                                                 style="width: 120px; height: 160px; margin: auto">
+                                        </c:if>
+                                        <c:if test="${empty item.pictureUrl}">
+                                            <img src="/images/default.jpg" alt="java" class="img-rounded"
+                                                 style="width: 120px; height: 160px; margin: auto">
+                                        </c:if>
+
                                     </h4>
                                     <h5>${item.bookName}</h5>
                                 </a>
 
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-xs"
-                                       onClick='preserve("${item.sellerId}","${item.bookId}")'>预约</a>
+                                    <c:if test="${item.state eq 1}">
+                                        <a href="#" class="btn btn-primary btn-xs"
+                                           onClick='preserve("${item.sellerId}","${item.bookId}")'>预约</a>
+                                    </c:if>
+
+                                    <c:if test="${item.state ne 1}">
+                                        <a href="javascript:void(0);return false;"
+                                           class="btn btn-warning btn-xs">已借出</a>
+                                    </c:if>
                                 </p>
                             </div>
                         </div>

@@ -39,7 +39,7 @@ public class IndexController extends BaseController {
 
         try {
             String apply = bookService.apply(userInfo.getUserId(), sellerUserId, bookId);
-            return ajaxSuccess("请妥善保管您的预约码：" + apply);
+            return ajaxSuccess("请妥善保管您的预约码：" + apply + "，联系地址：" + userInfo.getAddress());
         } catch (CheckedException e) {
             return ajaxFail(e.getMessage());
         }
