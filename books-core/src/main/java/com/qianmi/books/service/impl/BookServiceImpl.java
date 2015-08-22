@@ -55,6 +55,7 @@ public class BookServiceImpl implements BookService {
         tbBookUpdate.setBookId(tbBook.getBookId());
         tbBookUpdate.setApplyId(String.valueOf(applyId));
         tbBookUpdate.setApplyUserId(borrowUserId);
+        tbBookUpdate.setState(Contents.BookState.APPLY);
         int row = this.tbBookDao.updateTbBook(tbBookUpdate);
         if (row == 0) {
             throw new CheckedException("当前书不可预约");

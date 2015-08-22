@@ -1,7 +1,6 @@
 package com.qianmi.books.controller;
 
 import com.qianmi.books.dao.domain.TbUser;
-import com.qianmi.books.exception.CheckedException;
 import com.qianmi.books.service.BookService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created with of666.
@@ -23,32 +24,41 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @Autowired
     private BookService bookService;
-    @RequestMapping(value = "login",method = RequestMethod.GET)
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String main() {
         return "login";
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String createBill(TbUser tbUser,Model model,HttpServletRequest request){
+    public String createBill(TbUser tbUser, Model model, HttpServletRequest request, HttpServletResponse response) {
         try {
-            if(StringUtils.isBlank(tbUser.getUserName()) || StringUtils.isBlank(tbUser.getPassword())){
-                model.addAttribute("msg","请输入正确的用户名或密码！");
-                model.addAttribute("url","/login");
-                model.addAttribute("actionName","登陆");
+            if (StringUtils.isBlank(tbUser.getUserName()) || StringUtils.isBlank(tbUser.getPassword())) {
+                model.addAttribute("msg", "请输入正确的用户名或密码！");
+                model.addAttribute("url", "/login");
+                model.addAttribute("actionName", "登陆");
                 return "error";
             }
             TbUser userInfo = bookService.getUserByName(tbUser.getUserName());
-            if(userInfo == null || !tbUser.getPassword().equals(userInfo.getPassword())){
-                model.addAttribute("msg","用户名或密码错误！");
-                model.addAttribute("url","/login");
-                model.addAttribute("actionName","继续登陆");
+            if (userInfo == null || !tbUser.getPassword().equals(userInfo.getPassword())) {
+                model.addAttribute("msg", "用户名或密码错误！");
+                model.addAttribute("url", "/login");
+                model.addAttribute("actionName", "继续登陆");
                 return "error";
             }
-            request.getSession().setAttribute("userInfo",userInfo);
+            request.getSession().setAttribute("userInfo", userInfo);
         } catch (Exception e) {
-            model.addAttribute("msg","用户名或密码错误！");
-            model.addAttribute("url","/login");
-            model.addAttribute("actionName","继续登陆");
+            model.addAttribute("msg", "用户名或密码错误！");
+            model.addAttribute("url", "/login");
+            model.addAttribute("actionName", "继续登陆");
+            return "error";
+        }
+        try {
+            response.sendRedirect("/index");
+        } catch (IOException e) {
+            model.addAttribute("msg", "抱歉，系统跳转有误，请刷新页面后重试。");
+            model.addAttribute("url", "/login");
+            model.addAttribute("actionName", "继续登陆");
             return "error";
         }
         return "index";
