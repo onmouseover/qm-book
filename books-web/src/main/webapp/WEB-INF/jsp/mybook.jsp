@@ -148,10 +148,16 @@
             success:function(data){
                 if(data.result == 'ok'){
                     if(type == '1'){
-                        $('#lend_'+bookId).attr('data-state','1');
+                        $('#lend_'+bookId).addClass("btn-primary");
+                        $('#lend_'+bookId).removeClass("btn-success");
+                        $('#lend_'+bookId).attr('data-state','3');
+                        $('#lend_'+bookId).attr('data-type','2');
                         $('#lend_'+bookId).text("还书");
                     }else{
-                        $('#lend_'+bookId).attr('data-state','3');
+                        $('#lend_'+bookId).addClass("btn-success");
+                        $('#lend_'+bookId).removeClass("btn-primary");
+                        $('#lend_'+bookId).attr('data-state','1');
+                        $('#lend_'+bookId).attr('data-type','1');
                         $('#lend_'+bookId).text("借出");
                     }
                     $('#exampleModal').modal('hide')
