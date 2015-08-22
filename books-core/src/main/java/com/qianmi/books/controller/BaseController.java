@@ -1,10 +1,12 @@
 package com.qianmi.books.controller;
 
+import com.qianmi.books.dao.domain.TbUser;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,5 +40,13 @@ public class BaseController {
         jsonMap.put("result", "fail");
         jsonMap.put("msg", msg);
         return jsonMap;
+    }
+
+    protected TbUser getUserInfo(HttpSession session){
+        Object obj = session.getAttribute("userInfo");
+        if(obj != null){
+            return (TbUser)obj;
+        }
+        return null;
     }
 }

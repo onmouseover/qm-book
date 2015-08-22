@@ -63,17 +63,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void lend(String borrowUserId, String sellerUserId, String applyId) throws CheckedException {
+    public void lend(String sellerUserId, String applyId) throws CheckedException {
         TbBook tbBookCondition = new TbBook();
         tbBookCondition.setApplyId(applyId);
-        tbBookCondition.setApplyUserId(borrowUserId);
         tbBookCondition.setSellerId(sellerUserId);
         List<TbBook> tbBookList = this.tbBookDao.getTbBookList(tbBookCondition);
         if (tbBookList.size() == 0) {
             throw new CheckedException("此预约码已过期或不存在");
         }
         TbBook tbBook = tbBookList.get(0);
-
+        String borrowUserId = tbBook.getApplyUserId();
         TbUser tbUser = this.tbUserDao.getTbUser(borrowUserId);
         TbUser sellerUser = this.tbUserDao.getTbUser(sellerUserId);
 

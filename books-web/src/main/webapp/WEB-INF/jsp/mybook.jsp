@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="common/taglibs.jsp"></jsp:include>
+<%@include file="common/taglibs.jsp"%>
 <html lang="en">
 <head>
     <title>千米阅E库</title>
@@ -25,17 +25,17 @@
                         </c:if>
                         <div class="updated-card col-sm-5 col-md-4 col-lg-3"
                              style="height:auto;width:175px;text-align:center;margin-left: 42px">
-                            <div class="card pin css developer.bigfix.com">
+                            <div class="card pin css developer.bigfix.com" id="book_${item.bookId}">
                                 <a href="#">
                                     <h4>
                                         <img src="/images/1.jpg" alt="java" class="img-rounded"
                                              style="width: 120px; height: 160px; margin: auto">
                                     </h4>
-                                    <h5>java程序与设计</h5>
+                                    <h5>${item.bookName}</h5>
                                 </a>
 
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-xs">借书</a>
+                                    <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="${item.bookId}" data-state="${item.state}">借书</a>
                                 </p>
                             </div>
                         </div>
@@ -62,14 +62,74 @@
     </div>
 </footer>
 <!-- /container -->
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">借书</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="" name="bookId" id="bookId" />
+                    <input type="hidden" value="" name="bookState" id="bookState" />
+                    <div class="form-group" id="toUserName">
+                        <label for="userName" class="control-label">用户名:</label>
+                        <input type="text" class="form-control" id="userName">
+                    </div>
+                    <div class="form-group">
+                        <label for="borrowCode" class="control-label">借书码:</label>
+                        <input type="password" class="form-control" id="borrowCode">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn_borrow">确定借书</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/immutable.min.js"></script>
 <script type="text/javascript">
-    var searchBooks = function (condition) {
-        location.href = '/index?condition=' + condition;
-    };
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        var bookState = button.data('state');
+        if(bookState == '2'){
+            $('#toUserName').hide();
+        }else{
+            $('#toUserName').show();
+        }
+        var modal = $(this);
+        modal.find('#bookId').val(recipient);
+        modal.find('#bookState').val(bookState);
+    })
+    $('#btn_borrow').on('click',function(){
+        var userName = $('#userName').val();
+        var borrowCode = $('#borrowCode').val();
+        var bookId = $('#bookId').val();
+        var bookState =  $('#bookState').val();
+        $.ajax({
+            type:"post",
+            url:"/borrowBook",
+            data:{userName:userName,borrowCode:borrowCode,bookId:bookId,bookState:bookState},
+            success:function(data){
+                if(data.result == 'ok'){
+                    $('#book_'+bookId).hide();
+                    alert('操作成功');
+                }else{
+                    alert(data.msg);
+                };
+            },
+            error:function(data){
+                alert("让程序飞一会儿！");
+            }
+
+        });
+    });
 </script>
 </body>
 </html>

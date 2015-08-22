@@ -28,12 +28,11 @@ public interface BookService {
     /**
      * 通过预定码借出图书
      *
-     * @param borrowUserId
      * @param sellerUserId
      * @param applyId
      * @throws CheckedException
      */
-    void lend(String borrowUserId, String sellerUserId, String applyId) throws CheckedException;
+    void lend(String sellerUserId, String applyId) throws CheckedException;
 
     /**
      * 根据买家借书码借出图书

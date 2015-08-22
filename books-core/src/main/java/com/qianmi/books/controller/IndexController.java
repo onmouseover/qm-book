@@ -24,7 +24,6 @@ public class IndexController extends BaseController {
         TbBook tbBook = new TbBook();
         tbBook.setBookName(condition);
         model.addAttribute("bookList", bookService.queryBookList(tbBook));
-        System.out.println(JSON.toJSONString(bookService.queryBookList(tbBook)));
         return "index";
     }
 }
