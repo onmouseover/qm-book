@@ -51,7 +51,7 @@ public class MyBookController extends BaseController {
                 || StringUtils.isBlank(borrowCode)){
             return ajaxFail("请输入正确的数据!");
         }
-        if(!"2".equals(bookState)){
+        if(!"2".equals(bookState) && "1".equals(type)){
             if(StringUtils.isBlank(userName)){
                 return ajaxFail("请输入借书人名称!");
             }

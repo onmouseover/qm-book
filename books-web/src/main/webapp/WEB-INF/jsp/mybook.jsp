@@ -31,14 +31,16 @@
                                         <img src="/images/1.jpg" alt="java" class="img-rounded"
                                              style="width: 120px; height: 160px; margin: auto">
                                     </h4>
-                                    <h5>${item.bookName}</h5>
+                                    <h5>
+                                    ${item.bookName}
+                                    </h5>
                                 </a>
                                 <p>
                                     <c:if test="${item.state eq '1' || item.state eq '2'}">
                                         <a href="#" class="btn btn-success btn-xs" id="lend_${item.bookId}" data-toggle="modal" data-target="#exampleModal" data-type="1" data-whatever="${item.bookId}" data-state="${item.state}">借出</a>
                                     </c:if>
                                     <c:if test="${item.state eq '3'}">
-                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" id="lend_${item.bookId}" data-target="#exampleModal" data-type="2" data-whatever="${item.bookId}" data-state="${item.state}">还书</a>
+                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" id="lend_${item.bookId}" data-target="#exampleModal" data-type="2" data-whatever="${item.bookId}" data-state="${item.state}">归还</a>
                                     </c:if>
                                     <c:if test="${item.state ne '0'}">
                                         <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" id="borrow_${item.bookId}" data-target="#exampleModal" data-whatever="${item.bookId}" data-type="3" data-state="${item.state}">下架</a>
@@ -47,6 +49,7 @@
                                         <a href="#" class="btn btn-info btn-xs" data-toggle="modal" id="borrow_${item.bookId}" data-target="#exampleModal" data-whatever="${item.bookId}" data-type="4" data-state="${item.state}">上架</a>
                                     </c:if>
                                 </p>
+
                             </div>
                         </div>
 
@@ -113,7 +116,7 @@
         if(type == '2'){
             $('#type').val('2');
             $('#toUserName').hide();
-            $('#exampleModalLabel').html('还书');
+            $('#exampleModalLabel').html('归还');
         }else if(type == '1'){
             $('#type').val('1');
             $('#exampleModalLabel').html('借出');
@@ -152,7 +155,7 @@
                         $('#lend_'+bookId).removeClass("btn-success");
                         $('#lend_'+bookId).attr('data-state','3');
                         $('#lend_'+bookId).attr('data-type','2');
-                        $('#lend_'+bookId).text("还书");
+                        $('#lend_'+bookId).text("归还");
                     }else{
                         $('#lend_'+bookId).addClass("btn-success");
                         $('#lend_'+bookId).removeClass("btn-primary");
